@@ -1,0 +1,61 @@
+<HTML>
+<head>
+</head>
+<body>
+	<?php
+include "../entities/Categorie.php";
+include "../core/CategorieC.php";
+
+if (isset($_GET['idcat'])){
+	$categorieC=new CategorieC();
+    $result=$categorieC->recuperercat($_GET['idcat']);
+	foreach($result as $row){
+		$idcat=$row['idcat'];
+		$nomcat=$row['nomcat'];
+		$description=$row['description'];
+		$affich=$row['affich'];
+?>
+
+
+
+<form method="POST">
+<table>
+<caption>Modifier cat</caption>
+<tr>
+<td>id</td>
+<td><input type="text" name="idcat"></td>
+</tr>
+<tr>
+<td>Nom</td>
+<td><input type="text" name="nomcat"></td>
+</tr>
+<tr>
+<td>desc</td>
+<td><input type="text" name="description" value="<?PHP $description ?>"></td>
+</tr>
+<tr>
+<td>aff</td>
+<td><input type="text" name="affich" value="<?PHP  $affich ?>"></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" name="modifiercat" value="modifiercat"></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="hidden" name="id_ini" value="<?PHP echo $_GET['idcat'];?>"></td>
+</tr>
+</table>
+</form>
+<?php
+	}
+}
+if (isset($_POST['modifiercat'])){
+	$categorie=new Categorie($_POST['idcat'],$_POST['nomcat'],$_POST['description'],$_POST['affich']);
+	$categorieC->modifiercat($categorie,$_POST['id_ini']);
+	echo $_POST['id_ini'];
+//	header('Location: afficher_categorie.php');
+}
+?>
+</body>
+</HTMl>
