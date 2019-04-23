@@ -35,8 +35,7 @@ try{
 	/*******************************************************************************************/
 
 	function modifier($promo,$reference){
-		$sql="UPDATE promo SET nom=:nom ,aprix=:aprix, taux=:taux,nprix=:nprix,quantite=:quantite, etat=:etat,nom=:nom,
-	 datee=:datee where reference = :reference" ;
+$sql="UPDATE promo SET nom=:nom ,aprix=:aprix, taux=:taux,nprix=:nprix,quantite=:quantite, etat=:etat,image=:image,	datee=:datee  where reference = :reference" ;
 		$db = config::getConnexion();
 		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
 try{		
@@ -51,9 +50,9 @@ try{
 	$etat=$promo->getetat();
 	$image=$promo->getimage();
 	$datee=$promo->getdatee();
-		$datas = 	array(':nom'=>$nom,':aprix'=>$aprix, ':taux'=>$taux, ':nprix'=>$nprix,':quantite'=>$quantite,':etat'=>$etat,':image'=>$image,':datee'=>$datee,':reference'=>$_GET['reference']);
-
-		$req->bindValue(':reference',$reference);
+	/*	$datas = 	array(':nom'=>$nom,':aprix'=>$aprix, ':taux'=>$taux, ':nprix'=>$nprix,':quantite'=>$quantite,':etat'=>$etat,':image'=>$image,':datee'=>$datee,':reference'=>$_GET['reference']);
+*/
+	$req->bindValue(':reference',$reference);
 	$req->bindValue(':nom',$nom);
 	$req->bindValue(':aprix',$aprix);
 	$req->bindValue(':taux',$taux);
@@ -64,26 +63,23 @@ try{
 	$req->bindValue(':datee',$datee);
 		
 		
-            $s=$req->execute();
+            $req->execute();
 			
            // header('Location: index.php');
         }
         catch (Exception $e){
             echo " Erreur ! ".$e->getMessage();
-   echo " Les datas : " ;
-  print_r($datas);
+  
         }
 		
 	}
 	/***************************************************************************/
 	function recupererpromo($reference){
-		$sql="SELECT * from promo where where reference=$reference";
+		$sql="SELECT * from promo where reference=$reference";
 		$db = config::getConnexion();
-		
 		try{
-			
-		$liste=$db->query($sql);
-		return $liste;
+		$promo=$db->query($sql);
+		return $promo;
 		}
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
@@ -105,6 +101,19 @@ try{
 	function afficherpromoo(){
 		//$sql="SElECT * From employe e inner join formationphp.employe a on e.cin= a.cin";
 		$sql="SElECT * From promo";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+	/***************************************************************************/
+	function affichercom(){
+		//$sql="SElECT * From employe e inner join formationphp.employe a on e.cin= a.cin";
+		$sql="SElECT * From commentaires";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);
@@ -148,6 +157,19 @@ try{
 		//$sql="SElECT * From employe e inner join formationphp.employe a on e.cin= a.cin";
 		$sql='select * from promo WHERE reference LIKE "%'.$_GET['search'].'%"';
 			
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+	/************************************************************/
+	function affichertri(){
+		//$sql="SElECT * From employe e inner join formationphp.employe a on e.cin= a.cin";
+		$sql="SElECT * From promo ORDER BY taux DESC";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);

@@ -3,6 +3,10 @@
  include "../core/PackC.php";
                $packC=new PackC();
                 $listestat=$packC->afficherstat();
+  if (isset($_POST["supprimer"])){
+						   $packC->supprimerpack($_POST["reference"]);
+							  header('Location:pack.php');
+						  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -216,11 +220,13 @@
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="search" name="search" class="form-control bg-light border-0 small" placeholder="Rechercher..." aria-label="Search" aria-describedby="basic-addon2">
+				<form method="GET" >
+              <input type="search"  name="search" class="form-control bg-light border-0 small" placeholder="Rechercher..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit" name="ex">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
+				  </form>
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				    <a href="index.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Aller Vers SNT</a>
               </div>
@@ -413,16 +419,13 @@
               <!-- Page Heading -->
               <!-- DataTales Example -->
              <div class="card shadow mb-4">
-                <div class="card-header py-3">
+                <div class="card-header py-3" >
 				<table>
 							<tr> 
 								<td><h6 class="m-0 font-weight-bold text-primary">Pack </h6></td>
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
 								
-								<td><a href="AjoutPack.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>  Ajouter  Pack</a>
-			
-		  <a href="modifpack.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit"></i> </i> Modifier Pack</a>
-				   <a href="supprimerPack.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-trash-alt"></i> </i>Supprimer  Pack </a>
+								<td><a href="AjoutPack.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>  Ajouter  Pack </a>
 					</td> 		
 				  </tr> 
 							<tr> 
@@ -434,14 +437,16 @@
 				   <?php
                  //include "../core/PromoC.php";
                 //$promoC=new PromoC();
-
-                $listePack=$packC->afficherpack();
+ $listePack=$packC->afficherpack();
+              
 
 
                  ?>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+			  
+                <div class="card-body" >
+                  <div class="table-responsive" > 
+					 
+                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0" >
                       <thead>
                         <tr>
                           <th>Reference Pack</th>
@@ -452,6 +457,7 @@
                           <th>Etat</th>
 						<th>Image</th>
                           <th>Date d'experation</th>
+							<th></th>
 
 
                         </tr>
@@ -459,16 +465,15 @@
 
                       <tbody>
 						  <?php
-
-		foreach($listePack as $row){
-			/*if (isset($_GET['search'])&&!empty($_GET['search'])) {
+  
+			if (isset($_GET['search'])&&!empty($_GET['search'])) {
     $search=htmlspecialchars($_GET['search']);
    // $result=$db->query('select * from promo WHERE reference LIKE "%'.$search.'%"');
 
-                $liste1=$promoC->rechercher();
-				foreach($liste1 as $row1){*/
+               $listesearch=$packC->rechercher();
+		foreach($listesearch as $row){
 
-	?>
+	?> 
                         <tr>
                           <td><?PHP echo $row['reference']; ?></td>
                           <td><?PHP echo $row['nom']; ?></td>
@@ -479,24 +484,48 @@
 							  <td>
 							<img width="60" height="60" src="<?php echo $row['image'] ;?>" ></td>
                           <td><?PHP echo $row['datee']; ?></td>
+							<td> <a href="modifpack.php?reference=<?PHP echo $row['reference']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit"></i> </i> Modifier Pack</a>
+						  <form method="POST">
+							  </br>
+						  <input type="submit" name="supprimer" value=" Supprimer  Pack"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"   >
+						  <input type="hidden" name="reference" value="<?PHP echo $row['reference'];  ?>" ></form>
+				  </td>
 
                         </tr>
                         <?PHP
+		}}else { foreach($listePack as $row){ ?>
+				 <tr>
+                          <td><?PHP echo $row['reference']; ?></td>
+                          <td><?PHP echo $row['nom']; ?></td>
+                          <td><?PHP echo $row['description'] ; ?></td>
+                          <td><?PHP echo $row['prix']; ?>.000 DT</td>
+                          <td><?PHP echo $row['quantite']; ?></td>
+                          <td><?PHP echo $row['etat']; ?></td>
+							  <td>
+							<img width="60" height="60" src="<?php echo $row['image'] ;?>" ></td>
+                          <td><?PHP echo $row['datee']; ?></td>
+							<td> <a href="modifpack.php?reference=<?PHP echo $row['reference']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit"></i> </i> Modifier Pack</a>
+						  <form method="POST">
+							  </br>
+						  <input type="submit" name="supprimer" value=" Supprimer  Pack"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"   >
+						  <input type="hidden" name="reference" value="<?PHP echo $row['reference'];  ?>" ></form>
+				  </td>
 
-				  }
+                        </tr>
+						
 
-?>
-                      </tbody>
+<?php }} ?>
+			  </tbody>
                     </table>
                   </div>
                 </div>
               </div>
 	  <div class="card shadow mb-4">
                 <div class="card-header py-3">
-
+<center>
 						<h6 class="m-0 font-weight-bold text-primary">Stat </h6>
 						<div id="piechart_3d" style="width: 800px ; height: 300px; padding-right: 50px  ; "></div>
-
+</center>
                 </div>
 
 
@@ -553,6 +582,7 @@
       </div>
     </div>
   </div>
+<!-- Recherche Ajax-->
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>

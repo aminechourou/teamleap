@@ -1,22 +1,24 @@
 <?php
 include "../core/PackC.php";
 include "../entities/Pack.php";
+$packC=new PackC();
+$packAM=$packC->recupererpack($_GET['reference']);
 
-if( isset($_GET['reference']) && isset($_GET['nom']) && isset($_GET['description']) && isset($_GET['prix']) && isset($_GET['quantite']) && isset($_GET['etat']) && isset($_GET['image']) && isset($_GET['datee'])  )
-{
-	$packC=new PackC();
-	 $result=$packC->recupererpack($_GET['reference']);
+ $listePack=$packC->afficherpack();
 
-
+$c=$packAM->fetchAll();
+foreach($c as $row){}
+?>
+<?php
 if (isset($_GET['modifier'])){
 $pack=new Pack($_GET['reference'],$_GET['nom'],$_GET['description'],$_GET['prix'],$_GET['quantite'],$_GET['etat'], $_GET['image'],$_GET['datee']);
- //$promoC=new PromoC();
- $mes=$packC->modifier($pack,$_GET['reference']);
-if ($mes==true)
-	echo "modif avec succées " ;
-}
+ $packC=new PackC();
+ $packC->modifier($pack,$_GET['reference']);
+
+	    header('Location: pack.php');
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +44,7 @@ if ($mes==true)
 </head>
 
 <body id="page-top">
-	<form method="GET" >
+	
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -191,7 +193,7 @@ if ($mes==true)
      <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+       <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -201,14 +203,16 @@ if ($mes==true)
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher..." aria-label="Search" aria-describedby="basic-addon2">
+              <input type="search" name="search" class="form-control bg-light border-0 small" placeholder="Rechercher..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="submit" name="ex">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
+				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				    <a href="index.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Aller Vers SNT</a>
               </div>
             </div>
-
+          </form>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -229,7 +233,7 @@ if ($mes==true)
                       </button>
                     </div>
                   </div>
-
+                </form>
               </div>
             </li>
 
@@ -344,7 +348,7 @@ if ($mes==true)
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Arfaoui Mohamed Aziz</span>
-           <img class="img-profile rounded-circle" src="cv.png">
+                <img class="img-profile rounded-circle" src="cv.png">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -393,6 +397,7 @@ if ($mes==true)
               <h6 class="m-0 font-weight-bold text-primary"><em class="fas fa-plus-square"> &nbsp; Modifier une Pack</em></h6>
               <h6 class="m-0 font-weight-bold text-primary">&nbsp;</h6>
             </div>
+			<form method="GET" >
 			  <form name="f">
             <div class="card-body">
               <div class="table-responsive">
@@ -401,7 +406,7 @@ if ($mes==true)
                     <tr>
                       <th>Reference Pack</th>
                       <th>
-						  <input width="10%"  name="reference" type="text" class="form-control form-control-user" id="reference" onblur="verifref(this)"  >
+						  <input width="10%"  name="reference1" type="text" class="form-control form-control-user" id="reference" onblur="verifref(this)" value="<?PHP echo $_GET['reference'];  ?>" disabled  >
 					  </th>
 
                     </tr>
@@ -410,7 +415,7 @@ if ($mes==true)
                     <tr>
                       <th>Nom Pack</th>
                       <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="nom" value="" >
+						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="nom" value="<?PHP echo $row['nom'];  ?>"  >
 					  </th>
 
                     </tr>
@@ -419,7 +424,7 @@ if ($mes==true)
                     <tr>
                       <th> Description </th>
                       <th>
-						  <input width="10%"  type="text"  name="description" class="form-control form-control-user" id="taux"  value="" >
+						  <input width="10%"  type="text"  name="description" class="form-control form-control-user" id="taux"  value="<?PHP echo $row['description'];  ?>" >
 
 						</th>
 
@@ -430,7 +435,7 @@ if ($mes==true)
                     <tr>
                       <th>Prix  Pack</th>
                       <th>
-					    <input width="10%" type="text" name="prix" class="form-control form-control-user" id="exampleInputEmail"  value="" onblur="verifNPrix(this)">
+					    <input width="10%" type="text" name="prix" class="form-control form-control-user" id="exampleInputEmail"  value="<?PHP echo $row['prix'];  ?>" onblur="verifNPrix(this)">
 					  </th>
 
                     </tr>
@@ -439,7 +444,7 @@ if ($mes==true)
                     <tr>
                       <th>Quantité</th>
                       <th>
-						  <input width="10%" type="number" name="quantite" class="form-control form-control-user" id="Quantité" min="0" max="20"  value="" >
+						  <input width="10%" type="number" name="quantite" class="form-control form-control-user" id="Quantité" min="0" max="20"  value="<?PHP echo $row['quantite'];  ?>" >
 					  </th>
 
                     </tr>
@@ -460,7 +465,9 @@ if ($mes==true)
                     <tr>
                       <th>Image du Pack </th>
                       <th>
-					   <input  type="file" name="image"  width="30%" >
+						 
+					   <input  type="file" name="image"  width="30%" value="<?PHP echo $row['image'];  ?>" >
+						   <label for="file"><?PHP echo $row['image'];  ?></label>
 					  </th>
 
                     </tr>
@@ -469,12 +476,14 @@ if ($mes==true)
                     <tr>
                       <th>Date d'experation</th>
                       <th>
-					    <input type="date" name="datee" class="form-control form-control-user" id="date" width="30%" >
+					    <input type="date" name="datee" class="form-control form-control-user" id="date" width="30%" value="<?PHP echo $row['datee'];  ?>" >
 					  </th>
 
                     </tr>
                   </thead>
 				  <thead>
+					  <input type="hidden" value="<?PHP echo $row['reference']; ?>" name="reference">
+					 
                     <tr> </tr>
                   </thead>
                 </table>
@@ -528,3 +537,4 @@ if ($mes==true)
 	</body>
 
 </html>
+

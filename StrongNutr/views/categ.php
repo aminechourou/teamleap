@@ -1,18 +1,4 @@
-<?php
-
- include "../core/PromoC.php";
-               $promoC=new PromoC();
-                $listestat=$promoC->afficherstat();
-if (isset($_POST["supprimer"])){
-	//echo "<script>confirm('Etes-vous sûr de vouloir supprimer cette reference')</script>"; 
-						   $promoC->supprimerpromo($_POST["reference"]);
-							  header('Location:reduc.php');
-						  }
-//include "../core/PromoC.php";
-             //  $promoC=new PromoC();
-               
-?>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,44 +12,12 @@ if (isset($_POST["supprimer"])){
   <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="file:///E|/StrongNutrition2/views/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
-	 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['nom', 'taux'],
-        <?php
-			//while($row=$res->fetech_assoc())
-			foreach($listestat as $row)
-			{
-				//echo '['".$row['taux'].",".$row['quantite']."'],';
-				//echo "['".$row['taux']."',".$row['quantite']."],";
-				echo "['".$row['nom']."',".$row['sum(taux)']."],";
-				//echo "taux: ".$promo->gettaux()."<br>";
-		        //echo "quantite: ".$promo->getquantite()."<br>";
-				//$row['taux'] ;
-			}
-        ?>
-		]);
+  <link href="file:///E|/StrongNutrition2/views/css/sb-admin-2.min.css" rel="stylesheet">
 
-        var options = {
-          title: 'les meilleur produit en remise',
-          is3D: true,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-      }
-    </script>
-
-	
-	
 </head>
 
 <body id="page-top">
@@ -71,13 +25,13 @@ if (isset($_POST["supprimer"])){
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-   <!-- Sidebar -->
+    <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="file:///E|/StrongNutrition2/views/index.html">
       <div class="sidebar-brand-icon rotate-n-1">
-          <img src="images/icons/logo-01.png" alt="IMG-LOGO" width="80px" height="60px">
+         <img src="file:///E|/StrongNutrition2/views/images/icons/logo-01.png" alt="IMG-LOGO" width="60px" height="60px">
         </div>
         <div class="sidebar-brand-text mx-3">snt <sup>Dashboard</sup></div>
       </a>
@@ -87,7 +41,7 @@ if (isset($_POST["supprimer"])){
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="file:///E|/StrongNutrition2/views/index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Tableau de bord</span></a>
       </li>
@@ -109,11 +63,11 @@ if (isset($_POST["supprimer"])){
         <div id="collapseCom" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="Commande.html">Commandes</a>
-            <a class="collapse-item" href="facture.html">Factures</a>
-			  <a class="collapse-item" href="avoirs.html">Avoirs</a>
-            <a class="collapse-item" href="bon-liv.html">Bons de livraison</a>
-			  <a class="collapse-item" href="panier.html">Paniers</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/Commande.html">Commandes</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/facture.html">Factures</a>
+			  <a class="collapse-item" href="file:///E|/StrongNutrition2/views/avoirs.html">Avoirs</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/bon-liv.html">Bons de livraison</a>
+			  <a class="collapse-item" href="file:///E|/StrongNutrition2/views/panier.html">Paniers</a>
           </div>
         </div>
       </li>
@@ -128,14 +82,14 @@ if (isset($_POST["supprimer"])){
         <div id="collapseCat" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
            
-            <a class="collapse-item" href="produit.html">Produits</a>
-            <a class="collapse-item" href="categ.html">Catégories</a>
-            <a class="collapse-item" href="suivi.html">Suivi</a>
-            <a class="collapse-item" href="att-carac.html">Attributs & caractéristiques</a>
-			   <a class="collapse-item" href="marque-fourni.html">Marques et fournisseurs</a>
-            <a class="collapse-item" href="fichier.html">Fichiers</a>
-            <a class="collapse-item" href="reduc.php">Réductions</a>
-            <a class="collapse-item" href="stocks.html">Stocks</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/produit.php">Produits</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/categ.php">Catégories</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/suivi.html">Suivi</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/att-carac.html">Attributs & caractéristiques</a>
+			   <a class="collapse-item" href="file:///E|/StrongNutrition2/views/marque-fourni.html">Marques et fournisseurs</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/fichier.html">Fichiers</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/reduc.php">Réductions</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/stocks.html">Stocks</a>
           </div>
         </div>
       </li>
@@ -149,8 +103,8 @@ if (isset($_POST["supprimer"])){
         <div id="collapseCl" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
            
-            <a class="collapse-item" href="client.html">Clients</a>
-            <a class="collapse-item" href="adresse.html">Adresses</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/client.html">Clients</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/adresse.html">Adresses</a>
           
           </div>
         </div>
@@ -165,9 +119,9 @@ if (isset($_POST["supprimer"])){
         <div id="collapseSAV" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
            
-            <a class="collapse-item" href="reduc.php">Promotions</a>
-            <a class="collapse-item" href="pack.php">Packs</a>
-          <a class="collapse-item" href="pub.php">Publicité</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/reduc.php">Promotions</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/pack.php">Packs</a>
+          <a class="collapse-item" href="file:///E|/StrongNutrition2/views/pub.php">Publicité</a>
           </div>
         </div>
       </li>
@@ -188,8 +142,8 @@ if (isset($_POST["supprimer"])){
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="transp.html">Transporteurs</a>
-            <a class="collapse-item" href="preference.html">Préférences</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/transp.html">Transporteurs</a>
+            <a class="collapse-item" href="file:///E|/StrongNutrition2/views/preference.html">Préférences</a>
           
           </div>
         </div>
@@ -208,7 +162,6 @@ if (isset($_POST["supprimer"])){
     </ul>
     <!-- End of Sidebar -->
 
-
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -226,16 +179,16 @@ if (isset($_POST["supprimer"])){
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-<form method="GET" >
-              <input type="search"  name="search" class="form-control bg-light border-0 small" placeholder="Rechercher..." aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="submit" name="ex">
+                <button class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
-                </button>
-				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				    <a href="index.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Aller Vers SNT</a>
+                </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				    
               </div>
+				
             </div>
+			 
           </form>
 
           <!-- Topbar Navbar -->
@@ -262,7 +215,9 @@ if (isset($_POST["supprimer"])){
             </li>
 
             <!-- Nav Item - Alerts -->
+			  
             <li class="nav-item dropdown no-arrow mx-1">
+				
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
@@ -372,7 +327,7 @@ if (isset($_POST["supprimer"])){
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Arfaoui Mohamed Aziz</span>
-                <img class="img-profile rounded-circle" src="cv.png">
+                <img class="img-profile rounded-circle" src="file:///E|/StrongNutrition2/views/cv.png">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -402,16 +357,89 @@ if (isset($_POST["supprimer"])){
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Tableau de bord</h1>
+            <a href="file:///E|/StrongNutrition2/views/index.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><em class="fas fa-sign-in-alt"></em> Aller vers Strong Nutrition Tunisia</a>
+			 
+          </div>
+
+        <!-- Begin Page Content -->
+
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Promtion</h1>
-            
-		  </div>
+            <h1 class="h3 mb-0 text-gray-800">Catégories</h1>
+            <a href="file:///E|/StrongNutrition2/views/categ1.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><em class="fas fa-plus-circle"></em> Ajouter une Catégorie</a></div>
           <!-- Content Row -->
           <div class="row">
-           
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Catégories désactivées</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                    </div>
+                    <div class="col-auto"> <i class="fas fa-power-off fa-2x"></i></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+Catégories vides</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                    </div>
+                    <div class="col-auto"><i class="far fa-bookmark fa-2x"></i> </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+Meilleure Catégorie (30J)</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Proteine</div>
+                        </div>
+                        <div class="col"> </div>
+                      </div>
+                    </div>
+                    <div class="col-auto"> <i class="far fa-money-bill-alt fa-2x"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Nombre moyen de produits par catégorie
+</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                    </div>
+                    <div class="col-auto"> <i class="fas fa-search fa-2x"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- Content Row -->
           <div class="row">
             <!-- Area Chart -->
@@ -425,175 +453,96 @@ if (isset($_POST["supprimer"])){
               <!-- DataTales Example -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-				<table>
-							<tr> 
-								<td><h6 class="m-0 font-weight-bold text-primary">Promotion </h6></td>
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
-								
-								<td><a href="promo.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>  Ajouter  Promotion </a>
-					</td> 		
-				  </tr> 
-							<tr> 
-						</tr>
-			  </table>
-						
-                  
+                  <h6 class="m-0 font-weight-bold text-primary">CATÉGORIES </h6>
                 </div>
-			    <?php
-                 //include "../core/PromoC.php";
-                //$promoC=new PromoC();
-				  
-                $listePromo=$promoC->afficherpromoo();
-	 $listetri=$promoC->affichertri();
-			    
-              
-	
-   
-   
+				  <?php
+                 include "file:///E|/StrongNutrition2/core/CategorieC.php";
+                $categorie1C=new CategorieC();
+                $listeEmployes=$categorie1C->affichercatt();
+                $categorie1C=new CategorieC();
+                $listeEmployes1=$categorie1C->afficherProduits2();
+
+
                  ?>
-                <div class="card-body" id="result-search">
-                  <div class="table-responsive" >
+
+                <div class="card-body">
+                  <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                       <thead>
                         <tr>
-                          <th>Reference Produit</th>
-						 <th>Nom Produit</th>
-                          <th>Ancien Prix</th>
-                          <th>taux de reduction</th>
-                          <th>Prix apres Promotion</th>
-                          <th>Quantité</th>
-                          <th>Etat</th>
-							<th>Image</th>
-                          <th>Date d'experation</th>
-							  <th></th>
-                          
+                          <th>ID</th>
+                          <th>Nom</th>
+                          <th>	Description</th>
+                          <th>Affichée</th>
+                          <th>Modification</th>
+                          <th>Suppression</th>
+
                         </tr>
                       </thead>
-                      
-                      <tbody>
-						  <?php
-						  if(isset($_GET['tri'])){
 
-		foreach($listetri as $row){
-			
- 
+						<?php
+
+ if (isset($_GET['maile'])){
+foreach($listeEmployes1 as $row) {
 	?>
-                        <tr>
-                          <td><?PHP echo $row['reference']; ?></td>
-							 <td><?PHP echo $row['nom']; ?></td>
-                          <td><?PHP echo $row['aprix']; ?>.000 DT</td>
-                          <td><?PHP echo $row['taux'] ; ?> %</td>
-                          <td><?PHP echo $row['nprix']; ?>.000 DT</td>
-                          <td><?PHP echo $row['quantite']; ?></td>
-                          <td><?PHP echo $row['etat']; ?></td>
-							<td>	<img width="60" height="60" src="<?php echo $row['image'] ;?>"> </td>
-                          <td><?PHP echo $row['datee']; ?></td>
-						     
-  <td> <a href="modifpromo.php?reference=<?PHP echo $row['reference']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit"></i> </i> Modifier Promo</a>
-						  <form method="POST">
-							  </br>
-						  <input type="submit" name="supprimer" value=" Supprimer  Promo"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"    >
-						  <input type="hidden" name="reference" value="<?PHP echo $row['reference'];  ?>" ></form>
-				  </td>
-                        </tr>
-                        <?PHP
+	<tr>
+	<td><?PHP echo $row['idcat']; ?></td>
+	<td><?PHP echo $row['nomcat']; ?></td>
+	<td><?PHP echo $row['description']; ?></td>
+	<td><?PHP echo $row['affich']; ?></td>
+  <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="file:///E|/StrongNutrition2/views/categ1modif.php?idcat=<?PHP echo $row['idcat']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-pen"></i>  Modifier</a></td>
+    <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="file:///E|/StrongNutrition2/views/categ1supp.php?idcat=<?PHP echo $row['idcat']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-minus-circle"></i>  Supprimer</a></td>
 
-				  }}else if (isset($_GET['search'])&&!empty($_GET['search'])) {
-    $search=htmlspecialchars($_GET['search']);
-   // $result=$db->query('select * from promo WHERE reference LIKE "%'.$search.'%"');
 
-               $listesearch=$promoC->rechercher();
-		foreach($listesearch as $row){
 
-                      
-			  ?> 
-			   <tr>
-                          <td><?PHP echo $row['reference']; ?></td>
-							 <td><?PHP echo $row['nom']; ?></td>
-                          <td><?PHP echo $row['aprix']; ?>.000 DT</td>
-                          <td><?PHP echo $row['taux'] ; ?> %</td>
-                          <td><?PHP echo $row['nprix']; ?>.000 DT</td>
-                          <td><?PHP echo $row['quantite']; ?></td>
-                          <td><?PHP echo $row['etat']; ?></td>
-							<td>	<img width="60" height="60" src="<?php echo $row['image'] ;?>"> </td>
-                          <td><?PHP echo $row['datee']; ?></td>
-						     
-  <td> <a href="modifpromo.php?reference=<?PHP echo $row['reference']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit"></i> </i> Modifier Promo</a>
-						  <form method="POST">
-							  </br>
-						  <input type="submit" name="supprimer" value=" Supprimer  Promo"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" 
-								 >
-						  <input type="hidden" name="reference" value="<?PHP echo $row['reference'];  ?>" ></form>
-				  </td>
-                        </tr>
-			  
-			  
-			  <?php }}else {
-
-                       foreach($listePromo as $row){
-			
- 
+	</tr>
+	<?php
+} } else {
+  foreach($listeEmployes as $row){
 	?>
-                        <tr>
-                          <td><?PHP echo $row['reference']; ?></td>
-							 <td><?PHP echo $row['nom']; ?></td>
-                          <td><?PHP echo $row['aprix']; ?>.000 DT</td>
-                          <td><?PHP echo $row['taux'] ; ?> %</td>
-                          <td><?PHP echo $row['nprix']; ?>.000 DT</td>
-                          <td><?PHP echo $row['quantite']; ?></td>
-                          <td><?PHP echo $row['etat']; ?></td>
-							<td>	<img width="60" height="60" src="<?php echo $row['image'] ;?>"> </td>
-                          <td><?PHP echo $row['datee']; ?></td>
-						  <td> <a href="modifpromo.php?reference=<?PHP echo $row['reference']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit"></i> </i> Modifier Promo</a>
-						  <form method="POST">
-							  </br>
-						  <input type="submit" name="supprimer" value=" Supprimer  Promo"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return confirm('Voulez-vous vraiment suprimer cette promotion ?')";  >
-						  <input type="hidden" name="reference" value="<?PHP echo $row['reference'];  ?>" ></form>
-				  </td>
+	<tr>
+	<td><?PHP echo $row['idcat']; ?></td>
+	<td><?PHP echo $row['nomcat']; ?></td>
+	<td><?PHP echo $row['description']; ?></td>
+	<td><?PHP echo $row['affich']; ?></td>
+  <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="file:///E|/StrongNutrition2/views/categ1modif.php?idcat=<?PHP echo $row['idcat']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-pen"></i>  Modifier</a></td>
+    <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="file:///E|/StrongNutrition2/views/categ1supp.php?idcat=<?PHP echo $row['idcat']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-minus-circle"></i>  Supprimer</a></td>
 
-                        </tr>
-                        <?PHP
 
-				  }}
 
+</tr> <?php } }
 ?>
-                      </tbody>
                     </table>
-					  <form method="GET">
-					  <th><td><i class="fas fa-sort-amount-down"><input type="submit" name="tri" value="Trier" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"></i></td></th>                        
-					  </form>
-					</div>
+
+                            <form method="GET">
+<th><td><i class="fas fa-sort-amount-down"><input type="submit" name="maile" value="Trier" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"></i></td></th>                            </form>
+
+                  </div>
+
                 </div>
-              </div>
-	  <div class="card shadow mb-4">
-                <div class="card-header py-3">
-					
-						<h6 class="m-0 font-weight-bold text-primary">Stat </h6>
-					<center>
-						<div id="piechart_3d" style="width: 800px ; height: 300px; padding-right: 50px  ; "></div>
-                  </center>
-                </div>
-				   
-               
               </div>
             </div>
-			 <div class="container-fluid">
-              <!-- Page Heading -->
-              <!-- DataTales Example -->
-              <div class="card shadow mb-4"> </div>
-            </div> 
           </div>
         </div>
+
         <!-- /.container-fluid -->
+
+
+
+<!--         ******************************************** -->
+
+
+
+
 
       </div>
       <!-- End of Main Content -->
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; TeamLeap 2019</span>
+            <span>Copyright &copy; Your Website 2019</span>
           </div>
         </div>
       </footer>
@@ -623,30 +572,31 @@ if (isset($_POST["supprimer"])){
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="file:///E|/StrongNutrition2/views/login.html">Logout</a>
         </div>
       </div>
     </div>
   </div>
 
+
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="file:///E|/StrongNutrition2/views/vendor/jquery/jquery.min.js"></script>
+  <script src="file:///E|/StrongNutrition2/views/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
- 
-
+  <script src="file:///E|/StrongNutrition2/views/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
+  <script src="file:///E|/StrongNutrition2/views/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="file:///E|/StrongNutrition2/views/vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <script src="file:///E|/StrongNutrition2/views/js/demo/chart-area-demo.js"></script>
+  <script src="file:///E|/StrongNutrition2/views/js/demo/chart-pie-demo.js"></script>
+
+
 
 </body>
 

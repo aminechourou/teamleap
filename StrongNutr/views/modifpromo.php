@@ -1,3 +1,27 @@
+<?php
+include "../core/PromoC.php";
+include "../entities/Promo.php";
+$promoC=new PromoC();
+$promoAM=$promoC->recupererpromo($_GET['reference']);
+
+ $listePromo=$promoC->afficherpromoo();
+
+$c=$promoAM->fetchAll();
+foreach($c as $row){}
+
+?>
+<?php
+if(isset($_GET['modifier']))
+{
+
+$promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_GET['nprix'],$_GET['quantite'],$_GET['etat'],$_GET['image'],$_GET['datee']);
+ $promoC=new PromoC();
+ $promoC->modifier($promo,$_GET['reference']);
+
+ header('Location: reduc.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -381,7 +405,7 @@
                     <tr>
                       <th>Reference Produit</th>
                       <th>
-						  <input width="10%"  name="reference" type="text" class="form-control form-control-user" id="reference" onblur="verifref(this)"  >
+						  <input width="10%"  name="reference1" type="text" class="form-control form-control-user" id="reference" onblur="verifref(this)" value="<?PHP echo $_GET['reference'];  ?> " disabled >
 					  </th>
 
                     </tr>
@@ -390,7 +414,7 @@
                     <tr>
                       <th>Nom Produit</th>
                       <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="nom" value="" >
+						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="nom" value="<?PHP echo $row['nom'];  ?>" >
 					  </th>
 
                     </tr>
@@ -399,7 +423,7 @@
                     <tr>
                       <th>Ancien Prix</th>
                       <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="aprix" value="" onblur="verifAPrix(this)">
+						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="aprix" value="<?PHP echo $row['aprix'];  ?>" onblur="verifAPrix(this)">
 					  </th>
 
                     </tr>
@@ -408,7 +432,7 @@
                     <tr>
                       <th> taux de reduction </th>
                       <th>
-						  <input width="10%"  type="number" step="5" name="taux" class="form-control form-control-user" id="taux"  value="" onblur="veriftaux(this)" >
+						  <input width="10%"  type="number" step="5" name="taux" class="form-control form-control-user" id="taux"  value="<?PHP echo $row['taux'];  ?>" onblur="veriftaux(this)" >
 
 						</th>
 
@@ -419,7 +443,7 @@
                     <tr>
                       <th>Prix apres Promotion</th>
                       <th>
-					    <input width="10%" type="text" name="nprix" class="form-control form-control-user" id="exampleInputEmail"  value="" onblur="verifNPrix(this)">
+					    <input width="10%" type="text" name="nprix" class="form-control form-control-user" id="exampleInputEmail"  value="<?PHP echo $row['nprix'];  ?>" onblur="verifNPrix(this)">
 					  </th>
 
                     </tr>
@@ -428,7 +452,7 @@
                     <tr>
                       <th>Quantité</th>
                       <th>
-						  <input width="10%" type="number" name="quantite" class="form-control form-control-user" id="Quantité" min="0" max="20"  value="" onblur="verifEtat(this)">
+						  <input width="10%" type="number" name="quantite" class="form-control form-control-user" id="Quantité" min="0" max="20"  value="<?PHP echo $row['quantite'];  ?>" onblur="verifEtat(this)">
 					  </th>
 
                     </tr>
@@ -457,12 +481,13 @@
                     <tr>
                       <th>Date d'experation</th>
                       <th>
-					    <input type="date" name="datee" class="form-control form-control-user" id="date" width="30%" >
+					    <input type="date" name="datee" class="form-control form-control-user" id="date" width="30%" value="<?PHP echo $row['datee'];  ?>" >
 					  </th>
 
                     </tr>
                   </thead>
 				  <thead>
+					    <input type="hidden" value="<?PHP echo $row['reference']; ?>" name="reference">
                     <tr> </tr>
                   </thead>
                 </table>
@@ -508,35 +533,6 @@
       </div>
     </div>
   </div>
-<?php
-include "../core/PromoC.php";
-include "../entities/Promo.php";
-
-if( isset($_GET['reference']) && isset($_GET['nom']) && isset($_GET['aprix']) && isset($_GET['taux']) && isset($_GET['nprix']) && isset($_GET['quantite']) && isset($_GET['etat']) && isset($_GET['image']) && isset($_GET['datee']))
-{
-	$promoC=new PromoC();
-	 $result=$promoC->recupererpromo($_GET['reference']);
-	foreach($result as $row){
-$reference=$row['reference'];
-		$nom=$row['nom'];
-$aprix=$row['aprix'];
-$taux=$row['taux'];
-$nprix=$row['nprix'];
-$quantite=$row['quantite'];
-$etat=$row['etat'];
-		$image=$row['image'];
-$datee=$row['datee'];
-
-	}
-}
-if (isset($_GET['modifier'])){
-$promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_GET['nprix'],$_GET['quantite'],$_GET['etat'],$_GET['image'],$_GET['datee']);
- //$promoC=new PromoC();
- $mes=$promoC->modifier($promo,$_GET['reference']);
-if ($mes==true)
-	echo "modif avec succées " ;
-}
-?>
 
 	</form>
 	   </form>

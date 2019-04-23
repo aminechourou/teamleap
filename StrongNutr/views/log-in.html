@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Contact</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -16,7 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
@@ -28,11 +31,11 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
-<script src="cnx.js">
+<script src="controlesaisie.js">
 </script>
 	</head>
 <body class="animsition">
-	
+
 	<!-- Header -->
 	<header class="header-v4">
 		<!-- Header desktop -->
@@ -45,7 +48,7 @@
 					</div>
 
 					<div class="right-top-bar flex-w h-full">
-						
+
 
 						<a href="log-in.html" class="flex-c-m trans-04 p-lr-25">
 							Mon compte
@@ -64,8 +67,8 @@
 
 			<div class="wrap-menu-desktop how-shadow1">
 				<nav class="limiter-menu-desktop container">
-					
-					<!-- Logo desktop -->		
+
+					<!-- Logo desktop -->
 					<a href="#" class="logo">
 						<img src="images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
@@ -75,16 +78,18 @@
 						<ul class="main-menu">
 							<li>
 								<a href="index.html">Accueil</a>
-								
+
 							</li>
 
 							<li>
 								<a href="product.html">Catalogue</a>
 								<ul class="sub-menu">
 									<li><a href="product 1.html">Acide Aminé Et BCAA</a></li>
-									<li><a href="product 2.html">Barres Énergétique</a></li>
+									<li><a href="product 2.html">Barres ةnergétique</a></li>
+									<li><a href="product 3.html">Compliments Alimentaires</a></li>
+									<li><a href="product 2.html">Gainer</a></li>
 									<li><a href="product 3.html">Protéine</a></li>
-									
+									<li><a href="product 3.html">Vitamines</a></li>
 								</ul>
 							</li>
 
@@ -100,13 +105,13 @@
 								<a href="blog.html">Forum</a>
 							</li>
                             <li>
-								<a href="about.html">À propos</a>
+								<a href="about.html">a propos</a>
 							</li>
 							<li>
 								<a href="contact.html">Contact</a>
 							</li>
 						</ul>
-					</div>	
+					</div>
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
@@ -123,12 +128,12 @@
 						</a>
 					</div>
 				</nav>
-			</div>	
+			</div>
 		</div>
 
 		<!-- Header Mobile -->
 		<div class="wrap-header-mobile">
-			<!-- Logo moblie -->		
+			<!-- Logo moblie -->
 			<div class="logo-mobile">
 				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
@@ -278,7 +283,7 @@
 		        </div>
 		      </div>
 		  </div>
-			
+
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
 					<li class="header-cart-item flex-w flex-t m-b-12">
@@ -329,7 +334,7 @@
 						</div>
 					</li>
 				</ul>
-				
+
 				<div class="w-full">
 					<div class="header-cart-total w-full p-tb-40">
 						Total: $75.00
@@ -355,7 +360,7 @@
 		<h2 class="ltext-105 cl0 txt-center">
 			Se Connecter / S'inscrire
 		</h2>
-	</section>	
+	</section>
 
 
 	<!-- Content page -->
@@ -363,67 +368,63 @@
 		<div class="container">
 		  <div class="flex-w flex-tr">
 				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-					<form name="f" onsubmit="verifForm(this);" >
+					<form id="form1" name="form1" method="POST" action="connexion.php">
 						<h4 class="mtext-105 cl2 txt-center p-b-30">
 							Se Connecter
 						</h4>
 
 						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email" placeholder="Votre adresse e-mail" onblur="verifemail(this)">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="mail" id="mail" placeholder="Votre adresse e-mail">
 							<img class="how-pos4 pointer-none" src="images/icons/icon-email.png" alt="ICON">
 						</div>
 
 						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="pwd" placeholder="Votre mot de passe" onblur="verifpwd(this)">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="mdp" id="mdp" placeholder="Votre mot de passe">
 							<img class="how-pos4 pointer-none" src="images/icons/icon-pass.png" alt="ICON">
 						</div>
 
-						
-						<a href="index2.html" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">  Connexion</a>
+						<input type="submit" value="Connexion" onclick="test()" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" name="button" id="button">	</button>
 					</form>
 				</div>
 
 				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-					<form  >
+					<form name="f1">
 						<h4 class="mtext-105 cl2 txt-center p-b-30">
 							S'inscrire
 						</h4>
 
 						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="nom" placeholder="Nom" onblur="verifNom(this)">
-							
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="nom" placeholder="Nom">
+
 						</div>
 						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="prenom" placeholder="Prénom" onblur="verifPrenom(this)">
-							
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="prenom" placeholder="Prénom">
+
 						</div>
 						<div class="bor8 m-b-20 how-pos4-parent">
 							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="date" id="da" name="date" placeholder="Date de naissance">
-							
+
 						</div>
-						
+
                         <div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email" placeholder="Adresse e-mail"  onblur="verifMail(this)">
-							
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email" placeholder="Adresse e-mail">
+
 						</div>
 						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="pwd" placeholder="Mot de passe">
-							
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="mdp" placeholder="Mot de passe">
+
 						</div>
-<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="pwd" placeholder="Répeter le mot de passe">
-							
-						</div>
-						<button input type="button" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="Valider" onclick=" verifForm(this)" >
+
+						<button input type="button" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="Valider" onclick="testi()">
 					Inscription
 						</button>
 					</form>
 				</div>
 			</div>
 		</div>
-	</section>	
-	
-	
+	</section>
+
+
 	<!-- Map -->
 	<div class="map">
 		<div class="size-303" id="google_map" data-map-x="40.691446" data-map-y="-73.886787" data-pin="images/icons/pin.png" data-scrollwhell="0" data-draggable="1" data-zoom="11"></div>
@@ -444,7 +445,7 @@
               de 10:00h à 18:00h </p>
           </div>
           <div class="col-sm-6 col-lg-3 p-b-50">
-            <h4 class="stext-301 cl0 p-b-30"> À propos </h4>
+            <h4 class="stext-301 cl0 p-b-30"> ہ propos </h4>
             <p class="stext-107 cl7 size-201"> Vente de produits sportifs tel que
               les compléments alimentaires et tout ce qui est
               en relation avec le domaine sportif. Appelez nous au (+216) 27 925 666 </p>
@@ -485,7 +486,7 @@
 		</span>
 	</div>
 
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
