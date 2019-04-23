@@ -1,5 +1,5 @@
 <?php
-include "../config.php";
+
 class ProduitC {
 function ajouterprod ($Produit)
 {
@@ -151,24 +151,9 @@ function recupererprod($idprod){
 		}
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
-        }}
-
-
-/**************************************************************/
-function afficherca(){
-
-		$categorieprod=$_GET['categ'];
-		$sql="SElECT * From produit where categorieprod='Whey'";
-		$db = config::getConnexion();
-		try{
-		$liste=$db->query($sql);
-		return $liste;
-		}
-        catch (Exception $e){
-            die('Erreur: '.$e->getMessage());
         }
 	}
-
 }
+
 
  ?>
