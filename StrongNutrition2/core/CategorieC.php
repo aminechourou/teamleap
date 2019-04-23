@@ -1,21 +1,19 @@
-<?php
+﻿<?php
 include "../config.php";
 class CategorieC {
 function ajouter ($Categorie)
 {
 	//$sql="UPDATE Categorie SET idcat=:idcat, nomcat=:nomcat,description=:description,affich=:affich, WHERE $idcat= :idcat";
 
-$sql="insert into Categorie (idcat,nomcat,description,affich) values (:idcat,:nomcat,:description,:affich)";
+$sql="insert into Categorie (nomcat,description,affich) values (:nomcat,:description,:affich)";
 $db=config::getConnexion();
 try {
 
 $req=$db->prepare($sql);
-$idcat=$Categorie->getidcat();
 $nomcat=$Categorie->getnomcat();
 $description=$Categorie->getdescription();
 $affich=$Categorie->getaffich();
 
-$req->bindValue(':idcat', $idcat);
 $req->bindValue(':nomcat', $nomcat);
 $req->bindValue(':description', $description);
 $req->bindValue(':affich', $affich);
@@ -88,7 +86,7 @@ function affichercatt(){
 		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
 try{
         $req=$db->prepare($sql);
-		    $idcat=$categorie->getidcat();
+		    
         $nomcat=$categorie->getnomcat();
         $description=$categorie->getdescription();
         $affich=$categorie->getaffich();
@@ -124,6 +122,14 @@ try{
             die('Erreur: '.$e->getMessage());
         }
 	}
+/*****************************************************************/
+
+
+
+
+
+
+
 
 /**************************************************************
 function rechercherListeCat($tarif){
