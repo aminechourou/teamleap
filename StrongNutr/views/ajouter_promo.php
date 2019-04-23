@@ -29,5 +29,10 @@ $header='From : test@gmail.com';
 mail($to,$sujet,$texte,$header);
 	header('Location: reduc.php');
 	
-}}
+}}else{
+	 echo '<body onLoad="alert(\'remplir tout les champs\')">'; 
+         // puis on le redirige vers la page d'accueil
+         echo '<meta http-equiv="refresh" content="0;URL=promp.html">'; 
+	
+}
 ?>

@@ -3,13 +3,25 @@ include "../core/PackC.php";
 include "../entities/Pack.php";
 
 
-if (isset($_GET["reference"])){
+$packC=new PackC();
+
+	$listePack=$packC->afficherpack();
+$resultat=0 ;
+  foreach($listePack as $row){
+	if(isset($_GET["reference"]) && ($_GET["reference"] ==$row['reference']))
+	{
+		  
+	  $packC->supprimerpack($_GET["reference"]);
+		  header('Location: pack.php');
+	}
+  
 	
-	$packC=new PackC();
-	$packC->supprimerpack($_GET["reference"]);
-    
-	if($_GET["reference"]== ":reference")
-	 {  header('Location: pack.php');;}
-	 else {echo "false";} }
+		  
+else	{ $resultat=1 ;
+		}}
+if($resultat==1) {
+{ echo '<script>alert("Reference Introuvable")</script>' ;}
+}
+
 ?>
 

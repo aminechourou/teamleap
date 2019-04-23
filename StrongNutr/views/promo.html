@@ -376,13 +376,13 @@
 
             <div class="card-body">
               <div class="table-responsive">
-				  <form name="f" onsubmit="verifForm(this);">
+				  <form name="f" onsubmit="return verifForm(this);">
                 <table  id="dataTable" width="60%" border="0px" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Reference Produit</th>
                       <th>
-						  <input width="10%"  name="reference" type="text" class="form-control form-control-user" id="reference" onblur="verifref(this)"  >
+						  <input width="10%"  name="reference" type="text" class="form-control form-control-user" id="reference" onblur="verifref(this);"  >
 					  </th>
 
                     </tr>
@@ -400,7 +400,7 @@
                     <tr>
                       <th>Ancien Prix</th>
                       <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="aprix" name="aprix" value="" onblur="verifaprix(this)">
+						  <input width="10%" type="text" class="form-control form-control-user" id="aprix" name="aprix" value="" onblur="verifaprix(this);">
 					  </th>
 
                     </tr>
@@ -409,7 +409,7 @@
                     <tr>
                       <th> taux de reduction </th>
                       <th>
-						  <input width="10%"  type="number" step="5" name="taux" class="form-control form-control-user" id="taux"  value="" onblur="veriftaux(this)" >
+						  <input width="10%"  type="number" step="5" name="taux" class="form-control form-control-user" id="taux"  value=""  >
 
 						</th>
 
@@ -420,7 +420,7 @@
                     <tr>
                       <th>Prix apres Promotion</th>
                       <th>
-					    <input width="10%" type="text" name="nprix" class="form-control form-control-user" id="exampleInputEmail"  value="" onblur="verifnprix(this)">
+					    <input width="10%" type="text" name="nprix" class="form-control form-control-user" id="exampleInputEmail"  value="" onblur="verifnprix(this);">
 					  </th>
 
                     </tr>
@@ -469,7 +469,7 @@
                   </thead>
                 </table>
 			   </br>
-	 <input type="submit" name="mailform" value="Ajouter une Promo"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" >
+	 <input type="submit" name="mailform" value="Ajouter une Promo"  onsubmit="verifForm(this);" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" >
 				  </form>
 						</div>
             </div>

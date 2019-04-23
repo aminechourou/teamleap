@@ -48,9 +48,9 @@ try{
 	$etat=$pack->getetat();
 	$image=$pack->getimage();
 	$datee=$pack->getdatee();
-		$datas = 	array(':nom'=>$nom, ':description'=>$description, ':prix'=>$prix,':quantite'=>$quantite,':etat'=>$etat, ':image'=>$image,':datee'=>$datee,':reference'=>$_GET['reference']);
+	/*	$datas = 	array(':nom'=>$nom, ':description'=>$description, ':prix'=>$prix,':quantite'=>$quantite,':etat'=>$etat, ':image'=>$image,':datee'=>$datee,':reference'=>$_GET['reference']);*/
 
-			$req->bindValue(':reference',$reference);
+	$req->bindValue(':reference',$reference);
 	$req->bindValue(':nom',$nom);
 	$req->bindValue(':description',$description);
 	$req->bindValue(':prix',$prix);
@@ -60,14 +60,13 @@ try{
 	$req->bindValue(':datee',$datee);
 		
 		
-            $s=$req->execute();
+            $req->execute();
 			
-           // header('Location: index.php');
+        
         }
         catch (Exception $e){
             echo " Erreur ! ".$e->getMessage();
-   echo " Les datas : " ;
-  print_r($datas);
+  
         }
 		
 	}
@@ -76,8 +75,8 @@ try{
 		$sql="SELECT * from pack where reference=$reference";
 		$db = config::getConnexion();
 		try{
-		$liste=$db->query($sql);
-		return $liste;
+		$pack=$db->query($sql);
+		return $pack;
 		}
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
@@ -140,7 +139,8 @@ try{
 		/*************************************************************/
 		function rechercher(){
 		//$sql="SElECT * From employe e inner join formationphp.employe a on e.cin= a.cin";
-		$sql='select * from promo WHERE reference LIKE "%'.$_GET['search'].'%"';
+			
+	$sql='select * from pack WHERE nom  LIKE "%'.$_GET['search'].'%"';
 			
 		$db = config::getConnexion();
 		try{
