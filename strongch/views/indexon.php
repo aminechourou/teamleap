@@ -1,3 +1,4 @@
+<?php session_start ();  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +46,7 @@
 				<nav class="limiter-menu-desktop p-l-45">
 					
 					<!-- Logo desktop -->		
-					<a href="index.html" class="logo">
+					<a href="indexon.php" class="logo">
 						<img src="images/icons/logo-02.png" alt="IMG-LOGO">
 					</a>
 
@@ -53,7 +54,7 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li>
-								<a href="index.html">Accueil</a>
+								<a href="indexon.php">Accueil</a>
 								
 							</li>
 
@@ -84,6 +85,17 @@
 							<li>
 								<a href="contact.html">Contact</a>
 							</li>
+							<li>
+								<?php
+
+if (isset($_SESSION['l']) && isset($_SESSION['p'])) 
+{ 
+	 echo $_SESSION['l'];
+	
+
+
+} ?>
+							</li>
 						</ul>
 					</div>	
 
@@ -109,7 +121,7 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="indexon.php"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -134,9 +146,9 @@
 		<div class="menu-mobile">
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="indexon.php">Home</a>
 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
+						<li><a href="indexon.php">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
 						<li><a href="home-03.html">Homepage 3</a></li>
 					</ul>
@@ -200,7 +212,7 @@
 			<div class="sidebar-content flex-w w-full p-lr-65 js-pscroll">
 				<ul class="sidebar-link w-full">
 					<li class="p-b-13">
-						<a href="index.html" class="stext-102 cl2 hov-cl1 trans-04">
+						<a href="indexon.php" class="stext-102 cl2 hov-cl1 trans-04">
 							Accueil
 						</a>
 					</li>
@@ -212,19 +224,19 @@
 					</li>
 
 					<li class="p-b-13">
-						<a href="cartefid.html" class="stext-102 cl2 hov-cl1 trans-04">
+						<a href="cartefid.php" class="stext-102 cl2 hov-cl1 trans-04">
 							Carte fidelité
 						</a>
 					</li>
 					
 					<li class="p-b-13">
-						<a href="modifierC.html" class="stext-102 cl2 hov-cl1 trans-04">
+						<a href="ModifierC.php" class="stext-102 cl2 hov-cl1 trans-04">
 							Supprimer Compte
 						</a>
 					</li>
 					
 					<li class="p-b-13">
-						<a href="index.html" class="stext-102 cl2 hov-cl1 trans-04" style="color: red">
+						<a href="logout.php" class="stext-102 cl2 hov-cl1 trans-04" style="color: red">
 							Déconnexion
 						</a>
 					</li>

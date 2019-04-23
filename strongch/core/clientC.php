@@ -11,7 +11,7 @@ function afficherClient ($client){
 		echo $employe->getNbHeures() * $employe->getTarifHoraire();
 	}*/
 	function ajouterClient($client){
-		$sql="insert into client (user,telephone,mail,mdp) values (:user, :telephone,:mail,:mdp)";
+		$sql="insert into client (user,telephone,mail,mdp,cin) values (:user, :telephone,:mail,:mdp,:cin)";
 		$db = config::getConnexion();
 		try{
         $req=$db->prepare($sql);
@@ -20,10 +20,12 @@ function afficherClient ($client){
         $telephone=$client->gettel();
         $mail=$client->getmail();
         $mdp=$client->getmdp();
+        $cin=$client->getcin();
 		$req->bindValue(':user',$user);
 		$req->bindValue(':telephone',$telephone);
 		$req->bindValue(':mail',$mail);
 		$req->bindValue(':mdp',$mdp);
+		$req->bindValue(':cin',$cin);
 	   $req->execute();
          return true;  
         }
@@ -59,7 +61,7 @@ function afficherClient ($client){
         }
 	}
 	function modifierClient($client,$user){
-		$sql="UPDATE client SET user=:userr, telephone=:telephone,mail=:mail,mdp=:mdp WHERE user=:user";
+		$sql="UPDATE client SET user=:userr, telephone=:telephone,mail=:mail,mdp=:mdp,cin=:cin WHERE user=:user";
 		
 		$db = config::getConnexion();
 		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
@@ -69,13 +71,15 @@ try{
         $telephone=$client->gettel();
         $mail=$client->getmail();                              
         $mdp=$client->getmdp();
+        $cin=$client->getcin();
     
-		$datas = array(':userr'=>$userr, ':user'=>$user, ':telephone'=>$telephone,':mail'=>$mail,':mdp'=>$mdp);
+		$datas = array(':userr'=>$userr, ':user'=>$user, ':telephone'=>$telephone,':mail'=>$mail,':mdp'=>$mdp,':cin'=>$cin);
 		$req->bindValue(':userr',$userr);
 		$req->bindValue(':user',$user);
 		$req->bindValue(':telephone',$telephone);
 		$req->bindValue(':mail',$mail);
 		$req->bindValue(':mdp',$mdp);
+		$req->bindValue(':cin',$cin);
 	
 		
 		
@@ -92,6 +96,61 @@ try{
 	}
 	function recupererClient($user){
 		$sql="select * from client  where user='".$user."'";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+	function recupererNum($num){
+		$sql="select * from cartefid  where num='".$num."'";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+	function recupererNom($nom){
+		$sql="select * from cartefid  where nom='".$nom."'";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+		function recupererCmail($mail){
+		$sql="select * from client  where mail='".$mail."'";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+	function recupererCtel($telephone){
+		$sql="select * from client  where telephone='".$telephone."'";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+	function recupererCcin($cin){
+		$sql="select * from client  where cin='".$cin."'";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);

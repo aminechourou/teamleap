@@ -460,6 +460,7 @@ foreach($listeFids as $row){
                           <th>telephone</th>
                           <th>mail</th>
                           <th>mdp</th>
+                          <th>Carte d'identité</th>
                        </tr>
                       </thead>
                       
@@ -472,6 +473,7 @@ foreach($listeClients as $row){
   <td><?PHP echo $row['telephone']; ?></td>
   <td><?PHP echo $row['mail']; ?></td>
   <td><?PHP echo $row['mdp']; ?></td>
+   <td><?PHP echo $row['cin']; ?></td>
   </tr>
   <?php
 	$s++;
@@ -496,11 +498,11 @@ foreach($listeClients as $row){
                 </div>
               </div>
             </div>
+            <form action="pdfc.php">
           <div align="right" >
-          <button style="background-color: transparent;border: 0px" title="Modifier"><i class="fas fa-pen"></i></button>
-          <button style="background-color: transparent;border: 0px" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
-          
-            </div>
+          <a href="pdfc.php"><i class="fas fa-print"></i></a>
+          </div>
+        </form>
                 </div>
               </div>
             </div>

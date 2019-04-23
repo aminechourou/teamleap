@@ -375,12 +375,23 @@
 						</div>
 					
 
-						<button input type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="supprimer">
+						<button input type="submit" id="get" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="supprimer">
 					Supprimer
 						</button>
 					</form>
 				</div>
-			  
+			  <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+					<form name="f1" method="post" action="supprimerfid.php" onSubmit="return verifForm1(this)">
+						<h4 class="mtext-105 cl2 txt-center p-b-30">
+						Supprimer votre carte
+						</h4>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+	<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="num" placeholder="numero" maxlength="4" onblur="verifCin(this)" />
+							
+						</div>
+						<input type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="Supprimer">
+					</form>
 			</div>
 			
 			</div>
@@ -490,6 +501,11 @@
 	<script src="js/map-custom.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script
+  src="http://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
+  <script>$(document).ready(function(){$('#get').hide();});</script>
 
 </body>
 </html>

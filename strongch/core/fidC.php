@@ -4,23 +4,23 @@ class FidC {
 function afficherFid ($fid){
 		echo "numéro: ".$fid->getfid()."<br>";
 		echo "Nom: ".$fid->getnom()."<br>";
-		echo "cin: ".$fid->getcin()."<br>";
+		echo "cinn: ".$fid->getcinn()."<br>";
 	}
 	/*function calculerSalaire($employe){
 		echo $employe->getNbHeures() * $employe->getTarifHoraire();
 	}*/
 	function ajouterFid($fid){
-		$sql="insert into cartefid (num,nom,cin) values (:num, :nom,:cin)";
+		$sql="insert into cartefid (num,nom,cinn) values (:num, :nom,:cinn)";
 		$db = config::getConnexion();
 		try{
         $req=$db->prepare($sql);
 		
         $num=$fid->getnum();
         $nom=$fid->getnom();
-        $cin=$fid->getcin();
+        $cinn=$fid->getcinn();
 		$req->bindValue(':num',$num);
 		$req->bindValue(':nom',$nom);
-		$req->bindValue(':cin',$cin);
+		$req->bindValue(':cinn',$cinn);
 	   $req->execute();
          return true;  
         }
@@ -44,6 +44,19 @@ function afficherFid ($fid){
 	}
 	function supprimerFid($num){
 		$sql="DELETE FROM cartefid where num= :num";
+		$db = config::getConnexion();
+        $req=$db->prepare($sql);
+		$req->bindValue(':num',$num);
+		try{
+            $req->execute();
+           // header('Location: index.php');
+        }
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+    }
+        function modifierFid($num){
+		$sql="UPDATE cartefid SET confirmedmail=1 WHERE num=:num";
 		$db = config::getConnexion();
         $req=$db->prepare($sql);
 		$req->bindValue(':num',$num);
@@ -78,7 +91,7 @@ try{
 		
             $s=$req->execute();
 			
-           // header('Location: index.php');
+           
         }
         catch (Exception $e){
             echo " Erreur ! ".$e->getMessage();
@@ -86,9 +99,9 @@ try{
   print_r($datas);
         }
 		
-	}
-	function recupererClient($user){
-		$sql="SELECT * from client where user=:user";
+	}*/
+	function recupererFid($num){
+		$sql="select * from cartefid  where num='".$num."'";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);

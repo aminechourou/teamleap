@@ -1,9 +1,9 @@
 function verifForm2(f)
 
 {
-var comailOk = verifMail(f.comail);
+var comailOk = verifMail(f.mail);
 
-var comdpOk = verifPrenom(f.comdp);
+var comdpOk = verifPrenom(f.mdp);
   
 if(comailOk && comdpOk)
 
@@ -13,7 +13,7 @@ if(comailOk && comdpOk)
 
    {
 
-      alert("Veuillez remplir correctement tous les champs");
+      swal('Veuillez remplir correctement tous les champs')
 
       return false;
 
@@ -98,17 +98,38 @@ function verifCin(champ)
 {
 
    var regex = /^[0-9]*$/;
-
-   if(!regex.test(champ.value))
-
-   {
+if(champ.value.length < 8 || champ.value.length > 8 || !regex.test(champ.value))
+{
 
       surligne(champ, true);
 
       return false;
 
    }
+   else
 
+   {
+
+      surligne(champ, false);
+
+      return true;
+
+   }
+
+}
+function verifCin1(champ)
+
+{
+
+   var regex = /^[0-9]*$/;
+if(champ.value.length < 4 || champ.value.length > 4 || !regex.test(champ.value))
+{
+
+      surligne(champ, true);
+
+      return false;
+
+   }
    else
 
    {
@@ -157,10 +178,11 @@ function verifForm(f)
 
    var mailOk = verifMail(f.mail);
    var mdpOk = verifPrenom(f.mdp);
+   var cinOK = verifCin(f.cin);
 
    
 
-   if(pseudoOk && telOk && mailOk && mdpOk)
+   if(pseudoOk && telOk && mailOk && mdpOk && cinOK)
 
       return true;
 
@@ -168,7 +190,8 @@ function verifForm(f)
 
    {
 
-      alert("Veuillez remplir correctement tous les champs");
+    swal('Veuillez remplir correctement tous les champs')
+
 
       return false;
 
@@ -179,7 +202,7 @@ function verifForm1(f)
 
 {
 
-   var numOk = verifCin(f.num);
+   var numOk = verifCin1(f.num);
 
     var nomOk = verifNom(f.nom);
    var cinOk = verifCin(f.cin);
@@ -192,7 +215,7 @@ function verifForm1(f)
 
    {
 
-      alert("Veuillez remplir correctement tous les champs");
+      alert('Veuillez remplir correctement tous les champs');
 
       return false;
 

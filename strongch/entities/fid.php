@@ -3,18 +3,18 @@ class Fid
 {
 private $num;
 private $nom;
-private $cin;
-function __construct($num,$nom,$cin)
+private $cinn;
+function __construct($num,$nom,$cinn)
 {
 $this->num=$num;
 $this->nom=$nom;
-$this->cin=$cin;
+$this->cinn=$cinn;
 }
 function getnum(){return $this->num;}
 function getnom(){return $this->nom;}
-function getcin(){return $this->cin;}
+function getcinn(){return $this->cinn;}
 function setnum($num){$this->num=$num;}
 function setnom($nom){$this->nom=$nom;}
-function setemail($cin){$this->cin=$cin;}
+function setcinn($cinn){$this->cinn=$cinn;}
 }
 ?>

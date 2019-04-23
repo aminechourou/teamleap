@@ -391,6 +391,7 @@ $listeFids=$fidC->afficherFids();
                           <th>num</th>
                           <th>nom</th>
                           <th>CIN</th>
+                          <th>Confirmed Mail</th>
                         </tr>
                       </thead>
                       
@@ -401,7 +402,8 @@ foreach($listeFids as $row){
   <tr>
   <td><?PHP echo $row['num']; ?></td>
   <td><?PHP echo $row['nom']; ?></td>
-  <td><?PHP echo $row['cin']; ?></td>
+  <td><?PHP echo $row['cinn']; ?></td>
+  <td><?PHP echo $row['confirmedmail']; ?></td>
   </tr>
   <?php
 }
