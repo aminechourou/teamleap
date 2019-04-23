@@ -467,6 +467,8 @@ Meilleure Catégorie (30J)</div>
                           <th>Nom</th>
                           <th>	Description</th>
                           <th>Affichée</th>
+                          <th>Modification</th>
+                          <th>Suppression</th>
 
                         </tr>
                       </thead>
@@ -481,6 +483,9 @@ foreach($listeEmployes1 as $row) {
 	<td><?PHP echo $row['nomcat']; ?></td>
 	<td><?PHP echo $row['description']; ?></td>
 	<td><?PHP echo $row['affich']; ?></td>
+  <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="categ1modif.php?idcat=<?PHP echo $row['idcat']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-pen"></i>  Modifier</a></td>
+    <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="categ1supp.php?idcat=<?PHP echo $row['idcat']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-minus-circle"></i>  Supprimer</a></td>
+
 
 
 	</tr>
@@ -493,6 +498,9 @@ foreach($listeEmployes1 as $row) {
 	<td><?PHP echo $row['nomcat']; ?></td>
 	<td><?PHP echo $row['description']; ?></td>
 	<td><?PHP echo $row['affich']; ?></td>
+  <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="categ1modif.php?idcat=<?PHP echo $row['idcat']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-pen"></i>  Modifier</a></td>
+    <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="categ1supp.php?idcat=<?PHP echo $row['idcat']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-minus-circle"></i>  Supprimer</a></td>
+
 
 
 </tr> <?php } }
@@ -522,7 +530,6 @@ foreach($listeEmployes1 as $row) {
 
       </div>
       <!-- End of Main Content -->
-  <div class="d-sm-flex align-items-center justify-content-between mb-4" >&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<a href="categ1modif.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-pen"></i>  Modifier une Catégorie</a>  <a href="categ1supp.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-minus-circle"></i>  Supprimer une Catégorie</a>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</div>
 
     <!-- Footer -->
     <footer class="sticky-footer bg-white">

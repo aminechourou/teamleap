@@ -4,13 +4,13 @@ class ProduitC {
 function ajouterprod ($Produit)
 {
 
-$sql="insert into produit (idprod,nomprod,referenceprod,categorieprod,prixprod,etatprod,quantiteprod,imageprod) values (:idprod,:nomprod,:referenceprod,:categorieprod,:prixprod,:etatprod,:quantiteprod,:imageprod)";
+$sql="insert into produit (nomprod,referenceprod,categorieprod,prixprod,etatprod,quantiteprod,imageprod) values (:nomprod,:referenceprod,:categorieprod,:prixprod,:etatprod,:quantiteprod,:imageprod)";
 $db=config::getConnexion();
 try {
 
 $req=$db->prepare($sql);
 
-$idprod=$Produit->getidprod();
+
 $nomprod=$Produit->getnomprod();
 $referenceprod=$Produit->getreferenceprod();
 $categorieprod=$Produit->getcategorieprod();
@@ -20,7 +20,7 @@ $quantiteprod=$Produit->getquantiteprod();
 $imageprod=$Produit->getimageprod();
 
 
-$req->bindValue(':idprod', $idprod);
+
 $req->bindValue(':nomprod', $nomprod);
 $req->bindValue(':referenceprod', $referenceprod);
 $req->bindValue(':categorieprod', $categorieprod);
@@ -50,7 +50,7 @@ function afficherprod ($Produit){
 	}
 
 function afficherptoduit(){
-		
+
 		$sql="SElECT * From produit";
 		$db = config::getConnexion();
 		try{
@@ -62,10 +62,11 @@ function afficherptoduit(){
         }
 	}
 
+
 /************************************************************/
 
 	function afficherProduits3(){
-		
+
 		$sql="SElECT * From produit ORDER BY nomprod";
 		$db = config::getConnexion();
 		try{
@@ -83,16 +84,10 @@ function afficherptoduit(){
 
 
 
-
-
-
-
-
-
 	/***************************************************/
 	function supprimerprod($idprod){
 
- 	$sql="DELETE FROM produit where idprod= :idprod";
+ 	$sql="DELETE FROM produit where idprod=:idprod ";
  	$db = config::getConnexion();
  			$req=$db->prepare($sql);
  	$req->bindValue(':idprod',$idprod);
@@ -106,14 +101,15 @@ function afficherptoduit(){
  }
 
 
+
+
 /********************************************************************/
 function modifierprod($produit,$idprod){
-	$sql="UPDATE produit SET nomprod=:nomprod , referenceprod=:referenceprod, categorieprod=:categorieprod, prixprod=:prixprod, etatprod=:etatprod, quantiteprod=:quantiteprod , imageprod=:imageprod where idprod = :idprod ";
+	$sql="UPDATE produit SET  nomprod=:nomprod,referenceprod=:referenceprod ,categorieprod=:categorieprod, prixprod=:prixprod, etatprod=:etatprod, quantiteprod=:quantiteprod , imageprod=:imageprod where idprod= :idprod   ";
 	$db = config::getConnexion();
 	//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
 try{
 			$req=$db->prepare($sql);
-
 			$nomprod=$produit->getnomprod();
 			$referenceprod=$produit->getreferenceprod();
 			$categorieprod=$produit->getcategorieprod();
@@ -121,11 +117,12 @@ try{
 			$etatprod=$produit->getetatprod();
 			$quantiteprod=$produit->getquantiteprod();
 			$imageprod=$produit->getimageprod();
-			$idprod=$produit->getidprod();
 
-	$datas = array(':nomprod'=>$nomprod,':referenceprod'=>$referenceprod,':categorieprod'=>$categorieprod,':prixprod'=>$prixprod,':etatprod'=>$etatprod,':quantiteprod'=>$quantiteprod,':imageprod'=>$imageprod,':idprod'=>$_GET['idprod']);
-	$req->bindValue(':idprod',$idprod);
-	$req->bindValue(':nomprod',$nomprod);
+
+	//$datas = array(':nomprod'=>$nomprod,':categorieprod'=>$categorieprod,':prixprod'=>$prixprod,':etatprod'=>$etatprod,':quantiteprod'=>$quantiteprod,':imageprod'=>$imageprod,':referenceprod'=>$_GET['referenceprod']);
+
+$req->bindValue(':idprod',$idprod);
+$req->bindValue(':nomprod',$nomprod);
 	$req->bindValue(':referenceprod',$referenceprod);
 	$req->bindValue(':categorieprod',$categorieprod);
 	$req->bindValue(':prixprod',$prixprod);
@@ -139,16 +136,29 @@ try{
 				 //header('Location: index.php');
 			}
 			catch (Exception $e){
-					echo " Erreur ! ".$e->getMessage();
- echo " Les datas : " ;
-print_r($datas);
+				echo 'Erreur: '.$e->getMessage();
 			}
 
 }
 
 /**************************************************************/
-	function recupererprod($idprod){
+function recupererprod($idprod){
 		$sql="SELECT * from produit where idprod=$idprod";
+		$db = config::getConnexion();
+		try{
+		$produit=$db->query($sql);
+		return $produit;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }}
+
+
+/**************************************************************/
+function afficherca(){
+
+		$categorieprod=$_GET['categ'];
+		$sql="SElECT * From produit where categorieprod='Whey'";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);
@@ -158,6 +168,7 @@ print_r($datas);
             die('Erreur: '.$e->getMessage());
         }
 	}
+
 }
 
  ?>

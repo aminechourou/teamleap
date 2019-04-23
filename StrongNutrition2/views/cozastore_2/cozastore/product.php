@@ -1,18 +1,15 @@
-<?php
-			 include "../ProduitC.php";
+﻿<?php
+
+ include "../ProduitC.php";
+include "../Produit.php";
 			$produit1C=new ProduitC();
 			$listeProduit=$produit1C->afficherptoduit();
-			 			 include "../CategorieC1.php";
-			 			$categorie1C=new CategorieC();
-			 			$listeCategorie=$categorie1C->affichercatt();
-			 			 ?>
 
-
-
+			 				 			 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Product</title>
+	<title>Product Detail</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -62,13 +59,27 @@
 					<div class="right-top-bar flex-w h-full">
 
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							Mon compte
+						<a href="log-in.html" class="flex-c-m trans-04 p-lr-25">
+							<?php session_start ();
+
+// On récupère nos variables de session
+if (isset($_SESSION['l']) && isset($_SESSION['p']))
+{
+
+	 echo $_SESSION['r'];
+	echo '<a href="./logout.php" class="flex-c-m trans-04 p-lr-25" >Logout</a>';
+
+}
+
+else {
+	echo "Mon Compte";
+
+
+
+}   ?>
 						</a>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							FR
-						</a>
+
 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							Dinar Tunisien
@@ -80,8 +91,8 @@
 				<nav class="limiter-menu-desktop container">
 
 					<!-- Logo desktop -->
-					<a href="#" class="logo">
-						<a href="index.php"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+					<a href="index.php" class="logo">
+						<img src="images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->
@@ -91,7 +102,7 @@
 				<nav class="limiter-menu-desktop container">
 
 					<!-- Logo desktop -->
-					<a href="#" class="logo">
+					<a href="index.php" class="logo">
 						<img src="images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
 
@@ -103,27 +114,35 @@
 
 							</li>
 
+							<li>
+								<a href="product.php">Catalogue</a>
+								<ul class="sub-menu">
+									
+                  <?php
+									include "../CategorieC1.php" ;
+			 		 $categorie1C=new CategorieC();
+			 		$listeCategorie=$categorie1C->affichercatt();
+                  foreach($listeCategorie as $row){
 
-														<li>
-															<a href="product.php">Catalogue</a>
-															<ul class="sub-menu">
+                  ?>
+                <li>  <?php 		if	( $row['affich'] == "Oui")
+                 echo $row['nomcat']; ?> </li>
+  <?php
+                  }
+                  ?>
+</ul>
 
-
-							                  <?php
-							                  foreach($listeCategorie as $row){
-							                  ?>
-							                <li>  <?php
-																	if	( $row['affich'] == "Oui")
-																	 echo $row['nomcat']; ?> </li>
-							  <?php
-							                  }
-							                  ?>
-							</ul>
-
-														</li>
+							</li>
+								
 
 							<li class="label1" data-label1="promo">
 								<a href="product-promos.html">Bonnes affaires</a>
+								<ul class="sub-menu">
+									<li><a href="productPromo.php">Produit En Promos</a></li>
+									<li><a href="productPack.php">Nos Pack</a></li>
+
+
+								</ul>
 							</li>
 
 							<li>
@@ -229,14 +248,14 @@
 						<li><a href="index.php">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
 						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul>
+					</ul>1
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</span>
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="product.php">Shop</a>
 				</li>
 
 				<li>
@@ -613,8 +632,9 @@
 
 			<div class="row isotope-grid">
 				<?php
+				
 				foreach($listeProduit as $row){
-				if	(( $row['etatprod'] == "Disponible") && ( $row['etatprod'] == "Prochainement") ){?>
+				if	(( $row['etatprod'] == "Disponible" ) || ( $row['etatprod'] == "Prochainement") )?>
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item shoes">
 					<!-- Block2 -->
 
@@ -622,19 +642,17 @@
 
 						<div class="block2-pic hov-img0">
 
-				<img width="220" height="200" src="..\<?php echo $row['imageprod'] ;?>" >
+				<img width="220" height="200" src="image/<?php echo $row['imageprod'] ;?>" >
 
-			
 
-							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-								Quick View
-							</a>
+
+						
 						</div>
 
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="product-detail.php?idprod=<?PHP echo $row['idprod']; ?>">
 								<?PHP echo $row['nomprod']; ?>
 								</a>
 
@@ -643,18 +661,30 @@
 				      categorie: <?PHP
 
 
-							echo $row['categorieprod'];?>
 
+							echo $row['categorieprod'];?>
 									</span>
 								<span class="stext-105 cl3">
 								<?PHP echo $row['prixprod'];?>.000 DT
 
 								</span>
 								<span class="stext-105 cl3">
-								<?PHP echo $row['etatprod'];?>
+
+
+
+
+
+								<?PHP echo $row['etatprod'];  ?>
+
+
+
+
 
 								</span>
 							</div>
+
+
+
 
 							<div class="block2-txt-child2 flex-r p-t-3">
 								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
@@ -665,7 +695,7 @@
 						</div>
 					</div>
 				</div>
-		<?php 	} }
+		<?php 	}
 			?>
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item shoes">
 					<!-- Block2

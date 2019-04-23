@@ -323,7 +323,7 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hadouej Sonia&nbsp; <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hadouej Sonia&nbsp; <img class="img-profile rounded-circle" src=sousou.jpg">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -374,29 +374,27 @@
 			 <div class="card-body">
             <div class="table-responsive">
 
-				<form name="fou" method="GET" action="ajouter_produit.php" >
+				<form name="fou" method="GET" action="ajouter_produit.php" onsubmit="return VerifForm(this)" >
 							<table>
 
 	<thead>
   <tr>
-<td><th> Id du Produit</th></td>
-  <th>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="010101" onBlur="VerifID(this)" name="idprod" required  minlength="6" maxlength="6">
-
-  </th>
+<td></td>
+  <th>&nbsp; </th>
 </tr>
 			</thead>
-  <tr>
-    <td><th>Nom du Produit&nbsp; &nbsp; </th>
-  <td>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="NomProduit" onBlur="VerifNom(this)" name="nomprod" maxlength="50">
-  </td></tr>
-
   <tr>
     <td><th>Référence du Produit&nbsp; </th></td>
   <td>
   <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="reference" name="referenceprod" minlength="2" required>
   </td></tr>
+				  <tr>
+    <td><th>Nom du Produit&nbsp; &nbsp; </th>
+  <td>
+  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="NomProduit" onBlur="VerifNom(this)" name="nomprod" maxlength="50">
+  </td></tr>
+
+
 			<tr>
     <td><th>Catégorie du Produit&nbsp; &nbsp; </th>
   <td>

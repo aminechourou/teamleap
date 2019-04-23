@@ -1,12 +1,4 @@
-<?php
- include "../config.php";
-			 include "../CategorieC1.php";
-			$categorie1C=new CategorieC();
-			$listeCategorie=$categorie1C->affichercatt();
-			 ?>
-
-
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +54,7 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li>
-								<a href="index.html">Accueil</a>
+								<a href="index.php">Accueil</a>
 
 							</li>
 
@@ -71,7 +63,13 @@
 								<ul class="sub-menu">
 
 
-                  <?php
+                  
+<?php
+ 	    include "../config.php";
+		 include "../core/CategorieC1.php";
+			$categorie1C=new CategorieC();
+			$listeCategorie=$categorie1C->affichercatt();
+			
                   foreach($listeCategorie as $row){
 
                   ?>

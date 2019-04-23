@@ -1,7 +1,7 @@
 <?php
 class Produit {
 
-private $idprod;
+
 private $nomprod;
 private $referenceprod;
 private $categorieprod;
@@ -11,8 +11,8 @@ private $quantiteprod;
 private $imageprod;
 
 
-function __construct($idprod,$nomprod,$referenceprod,$categorieprod,$prixprod,$etatprod,$quantiteprod,$imageprod)
-{ $this->idprod=$idprod;
+function __construct($nomprod,$referenceprod,$categorieprod,$prixprod,$etatprod,$quantiteprod,$imageprod)
+{ 
   $this->nomprod=$nomprod;
   $this->referenceprod=$referenceprod;
   $this->categorieprod=$categorieprod;
@@ -22,7 +22,7 @@ function __construct($idprod,$nomprod,$referenceprod,$categorieprod,$prixprod,$e
   $this->imageprod=$imageprod;
 }
 
-function getidprod() {return $this->idprod;}
+
 function getnomprod() {return $this->nomprod;}
 function getreferenceprod() {return $this->referenceprod;}
 function getcategorieprod() {return $this->categorieprod;}
@@ -32,7 +32,6 @@ function getquantiteprod() {return $this->quantiteprod;}
 function getimageprod() {return $this->imageprod;}
 
 
-function setidprod($idprod) {$this->idprod=$idprod;}
 function setprod($nomprod) {$this->nomprod=$nomprod;}
 function setreference($referenceprod) {$this->referenceprod=$referenceprod;}
 function setcategotieprod($categorieprod) {$this->categorieprod=$categorieprod;}
