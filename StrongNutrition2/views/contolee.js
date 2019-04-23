@@ -1,4 +1,6 @@
 
+// JavaScript Document
+
 
 	function surligne(champ, erreur)
 
@@ -48,38 +50,6 @@ function VerifID(champ)
 }
 
 
-function VerifPrix(champ)
-{
-   if( isNaN(champ.value) )
-   {
-      surligne(champ, true);
-      return false;
-   }
-   else
-   {
-      surligne(champ, false);
-      return true;
-   }
-}
-
-
-
-
-function VerifCat(champ)
-{
-   if(champ.value.length <5 || champ.value.length > 200)
-   {
-      surligne(champ, true);
-	    alert("Veuillez remplir correctement tous les champs");
-      return false;
-   }
-   else
-   {
-      surligne(champ, false);
-      return true;
-   }
-}
-
 
 
 
@@ -87,14 +57,12 @@ function VerifForm(fou)
 
 {  
 
-   var IDOk = VerifID(fou.idprod);
-   var nomOk = VerifNom(fou.nomprod);
-	var catOk = VerifCat(fou.categorieprod);
-	var prixOk = VerifPrix(fou.prixprod);
-   	var quantiteOk = Verifprix(fou.quantiteprod);
+   var IDOk = VerifID(fou.idcat);
+   var nomOk = VerifNom(fou.nomcat);
+	
 
 
-   if(IDOk && nomOk && catOk && prixOk && quantiteOk)
+   if(IDOk && nomOk)
 
       return true;
 

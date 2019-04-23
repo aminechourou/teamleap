@@ -1,8 +1,25 @@
+<?php
+include "../core/CategorieC.php";
+$categorieC=new CategorieC();
+$liste=$categorieC->affichercatt();
+
+
+
+if (isset($_GET['valider1']) )
+{
+	$categorieC->supprimercat($_GET["idcat"]);
+	 header('Location:categ.php');
+  }
+
+
+	?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+	<script src="controlesaisie.js" ></script>
 
+  <meta http-equiv="Content-type" content="text/html;charset=utf-8"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,6 +37,7 @@
 
 </head>
 
+
 <body id="page-top">
 
   <!-- Page Wrapper -->
@@ -29,9 +47,9 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index1.html">
+        <div class="sidebar-brand-icon rotate-n-1">
+          <img src="loto.png" alt="IMG-LOGO" width="80" height="80">
         </div>
         <div class="sidebar-brand-text mx-3">snt <sup>Dashboard</sup></div>
       </a>
@@ -41,7 +59,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="index1.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Tableau de bord</span></a>
       </li>
@@ -65,7 +83,7 @@
             <h6 class="collapse-header">Custom Components:</h6>
             <a class="collapse-item" href="Commande.html">Commandes</a>
             <a class="collapse-item" href="facture.html">Factures</a>
-			 
+
             <a class="collapse-item" href="bon-liv.html">Bons de livraison</a>
 			  <a class="collapse-item" href="panier.html">Paniers</a>
           </div>
@@ -81,9 +99,9 @@
         </a>
         <div id="collapseCat" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-           
-            <a class="collapse-item" href="produit.html">Produits</a>
-            <a class="collapse-item" href="categ.html">Catégories</a>
+
+            <a class="collapse-item" href="produit.php">Produits</a>
+            <a class="collapse-item" href="categ.php">Catégories</a>
             <a class="collapse-item" href="suivi.html">Suivi</a>
             <a class="collapse-item" href="att-carac.html">Attributs & caractéristiques</a>
 			   <a class="collapse-item" href="marque-fourni.html">Marques et fournisseurs</a>
@@ -102,10 +120,10 @@
         </a>
         <div id="collapseCl" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-           
+
             <a class="collapse-item" href="client.html">Clients</a>
             <a class="collapse-item" href="adresse.html">Adresses</a>
-          
+
           </div>
         </div>
       </li>
@@ -118,7 +136,7 @@
         </a>
         <div id="collapseSAV" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-           
+
             <a class="collapse-item" href="sav.html">SAV</a>
             <a class="collapse-item" href="message.html">Messages prédéfinis</a>
           <a class="collapse-item" href="retour-prod.html">Retours produits</a>
@@ -144,12 +162,12 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="transp.html">Transporteurs</a>
             <a class="collapse-item" href="preference.html">Préférences</a>
-          
+
           </div>
         </div>
       </li>
 
-     
+
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -321,8 +339,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Ben Ayada Amen Allah</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <font color="#858796">Hadouej Sonia&nbsp; </font><img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -352,80 +369,13 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        
+
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Gérez vos clients</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>  Ajouter un nouveau client</a></div>
-          <!-- Content Row -->
-          <div class="row">
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Clients(TOUT TEMPS)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">100% Homme</div>
-                    </div>
-                    <div class="col-auto"> <i class="fas fa-male fa-2x"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1"> Âge moyen<br>
-(TOUT TEMPS)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">25 ans</div>
-                    </div>
-                    <div class="col-auto"><i class="far fa-calendar-alt fa-2x"></i> </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Commandes par client
-<br>
-(TOUT TEMPS)</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0</div>
-                        </div>
-                        <div class="col"> </div>
-                      </div>
-                    </div>
-                    <div class="col-auto"> <i class="fas fa-retweet fa-2x"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Inscriptions à la newsletter<br>
-(TOUT TEMPS)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
-                    </div>
-                    <div class="col-auto"> <i class="fas fa-user fa-2x"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <h1 class="h3 mb-0 text-gray-800">Suppréssion de la Catégorie</h1>
           </div>
+          <!-- Content Row -->
           <!-- Content Row -->
           <div class="row">
             <!-- Area Chart -->
@@ -439,73 +389,86 @@
               <!-- DataTales Example -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">GÉREZ VOS CLIENTS </h6>
+                  <h6 class="m-0 font-weight-bold text-primary">CATÉGORIES </h6>
                 </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Titre</th>
-                          <th>Prénom</th>
-                          <th>Nom</th>
-                          <th>Adresse<br>
- e-mail</th>
-                          
-                          
-						<th>Inscription</th>
-							<th>Dernière visite</th>
-
-                        </tr>
-                      </thead>
-                      
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>H</td>
-                          <td>Chourou</td>
-                          <td>Med Amine</td>
-                          <td>chourou.medamine@snt.com</td>
-                          <td>04/03/2019</td>
-                          <td>04/03/2019 13:00</td>
-                          
-                        </tr>
-                        
-                      </tbody>
-                    </table>
-                  </div>
-					<div align="right" >
-					<button style="background-color: transparent;border: 0px" title="Modifier"><i class="fas fa-pen"></i></button>
-					<button style="background-color: transparent;border: 0px" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
-					<button style="background-color: transparent;border: 0px" title="Afficher"><i class="fas fa-search-plus"></i></button>
-						</div>
-                </div>
-              </div>
+</div>
             </div>
           </div>
         </div>
         <!-- /.container-fluid -->
 
       </div>
-      <!-- End of Main Content -->
+      <div class="container-fluid">
+        <!-- Page Heading -->
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"><em class="fas fa-cogs"> supprimer un produit selon sa catégorie</em></h6>
+            <h6 class="m-0 font-weight-bold text-primary">&nbsp;</h6>
+          </div>
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
+
+          <div class="card-body">
+            <div class="table-responsive"> </div>
+            <form name="f" action="supprimer_categorie.php" method="GET">
+              <table>
+                <thead>
+                  <tr>
+                    <td>
+
+                    <th> Id de la Catégorie à supprimer&nbsp; &nbsp; </th>
+
+										<td><input value="<?PHP echo $_GET['idcat']; ?>" type="number" name="idcat"  width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" disabled></td>
+
+                      </td>
+                    </th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>
+                </tr>
+                <tr> <br>
+                  <td></td>
+                  <br>
+                  <br>
+                  <th> <br>
+                  <td><i class="fas fa-trash"></i>
+										<input  name="valider1" type="submit" value="Valider la suppréssion"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onClick="verifForm(this)"  >  </th>
+									<?php  foreach($liste as $row){ ?>
+									<input type="hidden" name="idcat" value="<?PHP echo $row['idcat'];  ?>">
+									<?php } ?>                    </th></td>
+                </tr>
+              </table>
+            </form>
+
+          </div>
+<span class="d-sm-flex align-items-center justify-content-between mb-4"></span><!-- End of Main Content -->
+<td>&nbsp&nbsp<a href="categ.php">
+<i class="fas fa-arrow-circle-left" ></i></a>
+</td>
+    </div>
+
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+<footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright &copy; Your Website 2019</span>
           </div>
         </div>
       </footer>
-      <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>

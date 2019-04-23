@@ -1,8 +1,24 @@
+<?php
+include "../core/ProduitC.php";
+$produitC=new ProduitC();
+$listeProduits=$produitC->afficherptoduit();
+
+
+
+if (isset($_GET['valider']) )
+{
+	$produitC->supprimerprod($_GET["idprod"]);
+	 header('Location: produit.php');
+  }
+
+
+	?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+<script src="controlesaisie.js" ></script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,13 +41,13 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-  <!-- Sidebar -->
+   <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index1.html">
+        <div class="sidebar-brand-icon rotate-n-1">
+          <img src="loto.png" alt="IMG-LOGO" width="80" height="80">
         </div>
         <div class="sidebar-brand-text mx-3">snt <sup>Dashboard</sup></div>
       </a>
@@ -41,7 +57,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="index1.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Tableau de bord</span></a>
       </li>
@@ -65,7 +81,6 @@
             <h6 class="collapse-header">Custom Components:</h6>
             <a class="collapse-item" href="Commande.html">Commandes</a>
             <a class="collapse-item" href="facture.html">Factures</a>
-			 
             <a class="collapse-item" href="bon-liv.html">Bons de livraison</a>
 			  <a class="collapse-item" href="panier.html">Paniers</a>
           </div>
@@ -81,9 +96,9 @@
         </a>
         <div id="collapseCat" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-           
-            <a class="collapse-item" href="produit.html">Produits</a>
-            <a class="collapse-item" href="categ.html">Catégories</a>
+
+            <a class="collapse-item" href="produit.php">Produits</a>
+            <a class="collapse-item" href="categ.php">Catégories</a>
             <a class="collapse-item" href="suivi.html">Suivi</a>
             <a class="collapse-item" href="att-carac.html">Attributs & caractéristiques</a>
 			   <a class="collapse-item" href="marque-fourni.html">Marques et fournisseurs</a>
@@ -102,10 +117,10 @@
         </a>
         <div id="collapseCl" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-           
+
             <a class="collapse-item" href="client.html">Clients</a>
             <a class="collapse-item" href="adresse.html">Adresses</a>
-          
+
           </div>
         </div>
       </li>
@@ -118,7 +133,7 @@
         </a>
         <div id="collapseSAV" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-           
+
             <a class="collapse-item" href="sav.html">SAV</a>
             <a class="collapse-item" href="message.html">Messages prédéfinis</a>
           <a class="collapse-item" href="retour-prod.html">Retours produits</a>
@@ -144,12 +159,12 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="transp.html">Transporteurs</a>
             <a class="collapse-item" href="preference.html">Préférences</a>
-          
+
           </div>
         </div>
       </li>
 
-     
+
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -320,9 +335,7 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Ben Ayada Amen Allah</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hadouej Sonia&nbsp; <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -352,142 +365,82 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        
+
         <div class="container-fluid">
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Gérez vos clients</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>  Ajouter un nouveau client</a></div>
-          <!-- Content Row -->
-          <div class="row">
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Clients(TOUT TEMPS)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">100% Homme</div>
-                    </div>
-                    <div class="col-auto"> <i class="fas fa-male fa-2x"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1"> Âge moyen<br>
-(TOUT TEMPS)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">25 ans</div>
-                    </div>
-                    <div class="col-auto"><i class="far fa-calendar-alt fa-2x"></i> </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Commandes par client
-<br>
-(TOUT TEMPS)</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0</div>
-                        </div>
-                        <div class="col"> </div>
-                      </div>
-                    </div>
-                    <div class="col-auto"> <i class="fas fa-retweet fa-2x"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Inscriptions à la newsletter<br>
-(TOUT TEMPS)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
-                    </div>
-                    <div class="col-auto"> <i class="fas fa-user fa-2x"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Content Row -->
-          <div class="row">
-            <!-- Area Chart -->
-            <!-- Pie Chart -->
-          </div>
-          <!-- Content Row -->
-          <div class="row">
-            <!-- Content Column -->
-            <div class="container-fluid">
-              <!-- Page Heading -->
-              <!-- DataTales Example -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">GÉREZ VOS CLIENTS </h6>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Titre</th>
-                          <th>Prénom</th>
-                          <th>Nom</th>
-                          <th>Adresse<br>
- e-mail</th>
-                          
-                          
-						<th>Inscription</th>
-							<th>Dernière visite</th>
-
-                        </tr>
-                      </thead>
-                      
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>H</td>
-                          <td>Chourou</td>
-                          <td>Med Amine</td>
-                          <td>chourou.medamine@snt.com</td>
-                          <td>04/03/2019</td>
-                          <td>04/03/2019 13:00</td>
-                          
-                        </tr>
-                        
-                      </tbody>
-                    </table>
-                  </div>
-					<div align="right" >
-					<button style="background-color: transparent;border: 0px" title="Modifier"><i class="fas fa-pen"></i></button>
-					<button style="background-color: transparent;border: 0px" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
-					<button style="background-color: transparent;border: 0px" title="Afficher"><i class="fas fa-search-plus"></i></button>
-						</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <h1 class="h3 mb-2 text-gray-800">Suppréssion du Produit</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4"> </div>
         </div>
         <!-- /.container-fluid -->
+<div class="container-fluid">
+          <!-- Page Heading -->
+
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary"><em class="fas fa-cogs"> Supprimer un Produit éxistant</em></h6>
+              <h6 class="m-0 font-weight-bold text-primary">&nbsp;</h6>
+            </div>
+			 <div class="card-body">
+            <div class="table-responsive">
+
+				<form name="f" action="supprimer_produit.php?idprod=idorod" method="GET">
+							<table>
+
+	<thead>
+  <tr>
+<td><th> Id du Produit à supprimer&nbsp; </th></td>
+
+
+<td><input value="<?PHP echo $_GET['idprod']; ?>" type="number" name="idprod"  width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" disabled></td>
+
+
+      </thead>
+
+
+  </th>
+</tr>
+
+  <tr>
+    <td></tr>
+
+  <tr>
+    <td></td>
+</tr>
+<tr>
+  <td>
+<td>&nbsp;</td></tr>
+<tr>
+  <td></tr>
+<tr> <br>
+    <td></td>
+	  <br>
+	  <br>
+
+	<th> <br><td><i class="fas fa-trash"></i>
+
+	</form>
+
+  <input  name="valider" type="submit" value="Valider la suppréssion"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onClick="verifForm(this)"  >  </th>
+<?php  foreach($listeProduits as $row){ ?>
+<input type="hidden" name="idprod" value="<?PHP echo $row['idprod'];  ?>">
+<?php } ?>
+</td></tr>
+  </table>
+
+        </div>
 
       </div>
+      <span class="d-sm-flex align-items-center justify-content-between mb-4"></span><!-- End of Main Content -->
+
+      <a href="produit.php">
+<i class="fas fa-arrow-circle-left" ></i></a>
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div><br /> </th>
       <!-- End of Main Content -->
 
       <!-- Footer -->

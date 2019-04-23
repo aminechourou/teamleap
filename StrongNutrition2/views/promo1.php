@@ -10,6 +10,7 @@ $sujet='test mail en local';
 $texte="ya bhim";
 $header='From : test@gmail.com';
 mail($to,$sujet,$texte,$header);
+header('Location:promo1.php');
 }
  ?>
 
@@ -392,12 +393,7 @@ mail($to,$sujet,$texte,$header);
 
 	<thead>
   <tr>
-<td><th> Id du Produit</th></td>
-  <th>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="010101" onBlur="VerifID(this)" name="idprod" required  minlength="6" maxlength="6">
 
-  </th>
-</tr>
 			</thead>
   <tr>
     <td><th>Nom du Produit&nbsp; &nbsp; </th>

@@ -1,3 +1,31 @@
+<?php
+  include "../entities/Categorie.php";
+  include "../core/CategorieC.php";
+//  if (isset($_GET['idprod'])){
+  $categorieC=new CategorieC();
+  $categorieAM=$categorieC->recuperercat($_GET['idcat']);
+  $liste=$categorieC->affichercatt();
+  $c=$categorieAM->fetchAll();
+  foreach($c as $row){}
+?>
+<?php
+			if( isset($_GET['nomcat']) && isset($_GET['description'] ) && isset($_GET['affich'] )){
+				$categorieC1=new CategorieC();
+			    $result1=$categorieC1->recuperercat($_GET['idcat']);
+
+		    	foreach($result1 as $row){
+
+
+			  if ( isset($_GET['modifier1'])) {
+
+				$categorie=new Categorie($_GET['nomcat'],$_GET['description'],$_GET['affich']);
+			$categorieC->modifier($categorie,$_GET['idcat']);
+		header('Location: categ.php');
+
+
+		}}}
+
+			?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +53,7 @@
 
 
 <body id="page-top">
+
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -402,36 +431,37 @@
 <table>
 	<thead>
   <tr>
-<td><th> Id Catégorie à modifier &nbsp </th></td>
-  <th>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="010101" onBlur="VerifID(this)" name="idcat" minlength="6" maxlength="6" required >
-
-  </th>
-</tr>
+<td><th> Id de la Catégorie à modifier &nbsp </th></td>
+  <td>
+  <input  value="<?PHP echo  $row['idcat'];  ?>" type="number"  name="idcat" width="10%"  class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" disabled ></td>
 			</thead>
+
   <tr>
+
     <td><th>Nom Catégorie</th>
   <td>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="NomCatégorie" onBlur="VerifNom(this)" name="nomcat" required >
+  <input value="<?PHP echo $row['nomcat'];?>" width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" onBlur="VerifNom(this)" name="nomcat" required >
   </td></tr>
 
   <tr>
     <td><th>Déscription: </th></td>
   <td>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="description" onBlur="VerifDescription(this)" name="description" >
+  <input  value="<?PHP echo $row['description'];  ?>" width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" onBlur="VerifDescription(this)" name="description" >
   </td></tr>
+
 <tr>
     <td><th>Affichée: </th></td>
   <td>
 	  Oui : <input type="radio" name="affich" value="Oui" checked >
 					    Non : <input type="radio" name="affich" value="Non"> <br>
   </td></tr>
+	<input type="hidden" value="<?PHP echo $row['idcat']; ?>" name="idcat">
   <tr> <br>
     <td></td>
 	  <br>
 	  <br>
 
-  <th> <br><br><br><td><i class="fas fa-pen"> </i><input href="categ.php" type="submit" value="Valider la modification" name="modifier" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onClick="verifForm(this)" ><a href="categ.php"></th>
+  <th> <br><br><br><td><i class="fas fa-pen"> </i><input href="categ.php" type="submit" value="Valider la modification" name="modifier1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onClick="verifForm(this)" ><a href="categ.php"></th>
   </td></tr>
 </table>
 </form>
@@ -495,38 +525,7 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
-	<?php
-	include "../entities/Categorie.php";
-	include "../core/CategorieC.php";
 
-	if( isset($_GET['idcat']) && isset($_GET['nomcat']) && isset($_GET['description'] ) && isset($_GET['affich'] )){
-		$categorieC=new CategorieC();
-	    $result=$categorieC->recuperercat($_GET['idcat']);
-
-	/*	foreach($result as $row){
-			$idcat=$row['idcat'];
-			$nomcat=$row['nomcat'];
-			$description=$row['description'];
-			$affich=$row['affich'];*/
-	}/*
-$categorieC1=new CategorieC();
-$listeProduit=$categorieC1->affichercatt();*/
-
-    	foreach($result as $row){
-
-
-	  if ( isset($_GET['modifier']) && isset($_GET["idcat"])  && ($_GET["idcat"] == $row['idcat']) ) {
-			 //header('Location: categ.php');
-		$categorie=new Categorie($_GET['idcat'],$_GET['nomcat'],$_GET['description'],$_GET['affich']);
-	$categorieC->modifier($categorie,$_GET['idcat']);
-echo "hey";
-
-}
-
- else { echo 'ID introuvable, veuillez saisir un id valable';}
-
- } s
-	?>
 
 </body>
 

@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 
@@ -370,7 +370,7 @@
             <h1 class="h3 mb-0 text-gray-800">Produits</h1>
             <ul class="nav-item dropdown no-arrow mx-1">
 
-          <a href="promo1.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>Nouveau produit</a></div>
+          <a href="promo1.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>Nouveau produit</a></div>
           <!-- Content Row -->
           <!-- Content Row -->
           <div class="row">
@@ -406,7 +406,8 @@
                           <th>État</th>
                           <th> Quantité </th>
 							<th>Image</th>
-
+                  <th>Modification</th>
+                  <th>Suppression</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -428,9 +429,10 @@
                <td><?PHP echo $row['prixprod']; ?></td>
                <td><?PHP echo $row['etatprod']; ?></td>
                <td><?PHP echo $row['quantiteprod']; ?></td>
-               <td><img width="100" height="100" src="cozastore_2/<?php echo $row['imageprod'] ;?>" ></td>
-
-            </tr>
+               <td><img width="100" height="100" src="cozastore_2/cozastore/image/<?php echo $row['imageprod'] ;?>" ></td>
+               <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="promo1modif.php?idprod=<?PHP echo $row['idprod']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-pen"></i>  Modifier</a></td>
+                 <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="promo1supp.php?idprod=<?PHP echo $row['idprod']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-minus-circle"></i> Supprimer</a></td>
+  </tr>
             <?php
             } } else {
 
@@ -444,7 +446,9 @@ foreach($listeProduit as $row){
     <td><?PHP echo $row['prixprod']; ?></td>
     <td><?PHP echo $row['etatprod']; ?></td>
     <td><?PHP echo $row['quantiteprod']; ?></td>
-    <td><img width="100" height="100" src="cozastore_2/<?php echo $row['imageprod'] ;?>" ></td>
+    <td><img width="100" height="100" src="cozastore_2/cozastore/image/<?php echo $row['imageprod'] ;?>" ></td>
+    <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="promo1modif.php?idprod=<?PHP echo $row['idprod']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-pen"></i> Modifier</a></td>
+      <td> <br><div class="d-sm-flex align-items-center justify-content-between mb-4" ><a href="promo1supp.php?idprod=<?PHP echo $row['idprod']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-minus-circle"></i> Supprimer</a></td>
 
 
 	</tr>
@@ -471,7 +475,7 @@ foreach($listeProduit as $row){
 
         <!-- /.container-fluid -->      </div>
       <!-- End of Main Content -->
-      <div class="d-sm-flex align-items-center justify-content-between mb-4" >&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<a href="promo1modif.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-pen"></i>  Modifier un Produit</a>  <a href="promo1supp.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-minus-circle"></i>  Supprimer un Produit</a>&nbsp <a href="chart.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> <i  class="fas fa-chart-pie"></i> Statistiques</a> &nbsp &nbsp &nbsp &nbsp &nbsp </div>
+     &nbsp;  &nbsp;  &nbsp;  &nbsp; <a href="chart.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> <i  class="fas fa-chart-pie"></i> Statistiques</a> &nbsp &nbsp &nbsp &nbsp &nbsp </div>
 
       <!-- Footer -->
       <footer class="sticky-footer bg-white">

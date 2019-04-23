@@ -11,13 +11,12 @@ if (isset($_GET["idcat"])  && ($_GET["idcat"] == $row['idcat']) )
 	$categorieC->supprimercat($_GET["idcat"]);
 	 header('Location: categ.php');
 
-} else { $resultat=1 ;
-}}
+}  else { $result=1 ;}
+}
 if($resultat==1) {
 echo '<script>alert("Id Introuvable, Veuillez saisir un ID valable")</script>' ;}
-	?> &nbsp;
-	<br>
-	<a href="categ1supp.html">Retour à la page précedente</a>
+	?>
+
 	<?php
 
 
@@ -48,7 +47,7 @@ if (isset($_GET["idcat"]) && ($_GET["idcat"]==':idcat'))
 	 {  header('Location: categ.php'); }
 	Else { ?>
 
-	 <a href="categ1supp.html">Retour à la page précedente</a>
+	 <a href="categ1supp.php">Retour à la page précedente</a>
 	 <?php
 	 echo "<script>alert(\"La catégorie est Introuvale. Veuillez saisir un ID valable.\")</script>";
 	 } ?>

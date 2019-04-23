@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<script src="controlesaisie.js" ></script>
+	<script src="contolee.js" ></script>
 
   <meta http-equiv="Content-type" content="text/html;charset=utf-8"><head>
   <meta charset="utf-8">
@@ -397,17 +397,9 @@
             <div class="table-responsive">
 
 
-				<form  action="ajouter_categorie.php" method="GET">
+				<form  action="ajouter_categorie.php" method="GET" onsubmit="return VerifForm(this)" >
 <table>
-	<thead>
-  <tr>
-<td><th> Id Catégorie</th></td>
-  <th>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="010101" onBlur="VerifID(this)" name="idcat" required minlength="6" maxlength="6">
 
-  </th>
-</tr>
-			</thead>
   <tr>
     <td><th>Nom Catégorie</th>
   <td>
@@ -417,7 +409,7 @@
   <tr>
     <td><th>Déscription: </th></td>
   <td>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="description" onBlur="VerifDescription(this)" name="description">
+  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="description" onBlur="VerifDescription(this)" name="description" required>
   </td></tr>
 <tr>
     <td><th>Affichée: </th></td>
@@ -430,7 +422,7 @@
 	  <br>
 	  <br>
 
-  <th><br> <br> <br><td><em class="fas fa-plus-circle" ></em><input type="submit" value="Valider l'ajout "  href="categ.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" class="fas fa-plus-circle " onClick="VerifForm()"></th>
+  <th><br> <br> <br><td><em class="fas fa-plus-circle" ></em><input type="submit" value="Valider l'ajout "  href="categ.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" class="fas fa-plus-circle " onsubmit="return VerifForm(this)"></th>
   </td></tr>
   </table>
 </form>
