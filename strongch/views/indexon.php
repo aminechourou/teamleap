@@ -1,4 +1,16 @@
-<?php session_start ();  ?>
+<?php session_start ();  
+include "../entities/client.php";
+include "../core/clientC.php";
+	$clientC=new ClientC();
+    $result=$clientC->recupererCmail($_SESSION['l']);
+    foreach($result as $row){
+		$user=$row['user'];
+		$telephone=$row['telephone'];
+		$mail=$row['mail'];
+		$mdp=$row['mdp'];
+		$cin=$row['cin'];
+	}
+	?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,10 +101,11 @@
 								<?php
 
 if (isset($_SESSION['l']) && isset($_SESSION['p'])) 
-{ 
-	 echo $_SESSION['l'];
-	
+{ ?>
 
+<a href="modifierclient.php?user=<?php echo $user; ?>"><?php echo $user; ?> </a>
+	
+<?php 
 
 } ?>
 							</li>
@@ -226,6 +239,11 @@ if (isset($_SESSION['l']) && isset($_SESSION['p']))
 					<li class="p-b-13">
 						<a href="cartefid.php" class="stext-102 cl2 hov-cl1 trans-04">
 							Carte fidelité
+						</a>
+					</li>
+					<li class="p-b-13">
+						<a href="modifiercarte.php?cin=<?php echo $cin; ?>" class="stext-102 cl2 hov-cl1 trans-04">
+							Modifier Carte fidelité
 						</a>
 					</li>
 					

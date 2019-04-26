@@ -17,11 +17,21 @@ $m=0;
 $fidC=new FidC();
     $resultat=$fidC->recupererCin($cin);
     foreach($resultat as $ro){
+    	$num=$ro['num'];
+    	$nombre=$ro['modifiercarte'];
+    	$confirm=$ro['confirmedmail'];
 	$m++;	
 	}
-if($m!=0)
-{   echo '<body onLoad="alert(\'Vous avez déja une carte de fidélité...\')">';
+if($m==0)
+{   echo '<body onLoad="alert(\'Vous n avez pas du carte de fidélité...\')">';
   echo '<meta http-equiv="refresh" content="0;URL=indexon.php">';}
+  if($confirm!=1)
+{   echo '<body onLoad="alert(\'Vous devez confrimé votre carte de fidélité...\')">';
+  echo '<meta http-equiv="refresh" content="0;URL=indexon.php">';}
+ if($nombre==3)
+{   echo '<body onLoad="alert(\'Vous ne pouvez pas modifier les donnees de votre carte une autre fois !!...\')">';
+  echo '<meta http-equiv="refresh" content="0;URL=indexon.php">';}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -378,7 +388,7 @@ if($m!=0)
 	<!-- Title page -->
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
 		<h2 class="ltext-105 cl0 txt-center">
-			Carte Fidelité
+			Modifier Carte Fidelité
 	</section>	
 
 
@@ -389,13 +399,12 @@ if($m!=0)
 				
 
 				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-					<form name="f1" method="GET" action="ajouterfid.php" onSubmit="return verifForm1(this)">
+					<form name="f1" method="POST" onSubmit="return verifForm1(this)">
 						<h4 class="mtext-105 cl2 txt-center p-b-30">
-						Demander une carte
+						Modifier votre carte
 						</h4>
-
-						<div class="bor8 m-b-20 how-pos4-parent">
-	<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="num" placeholder="numero" maxlength="4" onblur="verifCin1(this)" />
+											<div class="bor8 m-b-20 how-pos4-parent">
+	<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="num" placeholder="numero" maxlength="4" onblur="verifCin1(this)" value="<?php echo $num; ?>" readonly />
 							
 						</div>
 						<div class="bor8 m-b-20 how-pos4-parent">
@@ -407,21 +416,16 @@ if($m!=0)
 							
 						</div>
 
-						<input type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="Valider"> 
+						<input type="submit" name="modifier" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="modifier"> 
 					</form>
-				</div>
-			  <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-					<form name="f1" method="post" action="supprimerfid.php" onSubmit="return verifForm1(this)">
-						<h4 class="mtext-105 cl2 txt-center p-b-30">
-						Supprimer votre carte
-						</h4>
 
-						<div class="bor8 m-b-20 how-pos4-parent">
-	<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="num" placeholder="numero" maxlength="4" onblur="verifCin(this)" />
-							
-						</div>
-						<input type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="Supprimer">
-					</form>
+										<?php
+if (isset($_POST['modifier'])){
+	$fidC->modifierFide($_POST['nom'],$_POST['cinn']);
+	echo '<body onLoad="alert(\'Carte modifié avec succés\')">';
+  echo '<meta http-equiv="refresh" content="0;URL=indexon.php">';
+}
+?>
 				</div>
 			</div>
 		</div>

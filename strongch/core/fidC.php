@@ -67,39 +67,23 @@ function afficherFid ($fid){
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
         }
-	}/*
-	function modifierClient($client,$user){
-		$sql="UPDATE client SET user=:user, telephone=:telephone,mail=:mail,mdp=:mdp WHERE user=:user";
+	}
+	function modifierFide($nom,$cinn){
+		$sql="UPDATE cartefid SET nom=:nom ,modifiercarte=modifiercarte+1 WHERE cinn=:cinn";
 		
 		$db = config::getConnexion();
+		$req=$db->prepare($sql);
+		$req->bindValue(':nom',$nom);
+		$req->bindValue(':cinn',$cinn);
 		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
 try{		
-        $req=$db->prepare($sql);
-		$user=$client->getuser();
-        $telephone=$client->gettel();
-        $mail=$client->getmail();
-        $mdp=$client->getmdp();
-    
-		$datas = array(':user'=>$user, ':user'=>$user, ':telephone'=>$telephone,':mail'=>$mail,':mdp'=>$mdp);
-		$req->bindValue(':user',$user);
-		$req->bindValue(':user',$user);
-		$req->bindValue(':telephone',$telephone);
-		$req->bindValue(':mail',$mail);
-		$req->bindValue(':mdp',$mdp);
-	
-		
-		
-            $s=$req->execute();
-			
-           
-        }
+		$req->execute();
+	    }
         catch (Exception $e){
             echo " Erreur ! ".$e->getMessage();
-   echo " Les datas : " ;
-  print_r($datas);
         }
 		
-	}*/
+	}
 	function recupererFid($num){
 		$sql="select * from cartefid  where num='".$num."'";
 		$db = config::getConnexion();

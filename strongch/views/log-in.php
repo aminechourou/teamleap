@@ -424,6 +424,10 @@ $loginURL = $helper->getLoginUrl($redirectURL, $permissions);
 							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="cin" placeholder="cin" onblur="verifCin(this)" maxlength="8">
 							
 						</div>
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="number" name="age" placeholder="votre age" onblur="verifAge(this)" maxlength="2" min="16" max="99">
+							
+						</div>
 
 						<input type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="Inscription">
 					</form>
@@ -537,6 +541,7 @@ $loginURL = $helper->getLoginUrl($redirectURL, $permissions);
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 
 </body>

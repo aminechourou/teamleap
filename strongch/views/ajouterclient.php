@@ -1,15 +1,16 @@
 <?php
 include "../core/clientC.php";
 include "../entities/client.php";
-if(isset($_GET['user']) && isset($_GET['telephone']) && isset($_GET['mail']) && isset($_GET['mdp']) && isset($_GET['cin']))
+if(isset($_GET['user']) && isset($_GET['telephone']) && isset($_GET['mail']) && isset($_GET['mdp']) && isset($_GET['cin']) && isset($_GET['age']))
 {
 $user=$_GET['user'];
 $telephone=$_GET['telephone'];
 $mail=$_GET['mail'];
 $mdp=$_GET['mdp'];
 $cin=$_GET['cin'];
+$age=$_GET['age'];
 
-if(!empty($_GET['user']) && !empty($_GET['telephone']) && !empty($_GET['mail']) && !empty($_GET['mdp']) && !empty($_GET['cin']))
+if(!empty($_GET['user']) && !empty($_GET['telephone']) && !empty($_GET['mail']) && !empty($_GET['mdp']) && !empty($_GET['cin']) && !empty($_GET['age']))
 {$clientC=new ClientC();
 $result=$clientC->recupererClient($_GET['user']);
 $s=0;
@@ -19,6 +20,7 @@ $result=$clientC->recupererCmail($_GET['mail']);
 $k=0;
 foreach($result as $row){
 $k++;}
+
 $result=$clientC->recupererCtel($_GET['telephone']);
 $t=0;
 foreach($result as $row){
@@ -29,7 +31,7 @@ foreach($result as $row){
 $f++;}
 if($k==0 && $s==0 &&  $t==0 && $f==0)
 {
-$c=new Client($user,$telephone,$mail,$mdp,$cin);
+$c=new Client($user,$telephone,$mail,$mdp,$cin,$age);
 $clientC=new ClientC();
 $clientC->ajouterClient($c);
  echo '<body onLoad="alert(\'Inscription avec succés...\')">';

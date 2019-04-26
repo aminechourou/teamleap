@@ -9,6 +9,22 @@ function afficherFid ($fid){
 	/*function calculerSalaire($employe){
 		echo $employe->getNbHeures() * $employe->getTarifHoraire();
 	}*/
+		function modifierFide($nom,$cinn){
+		$sql="UPDATE cartefid SET nom=:nom ,modifiercarte=modifiercarte+1 WHERE cinn=:cinn";
+		
+		$db = config::getConnexion();
+		$req=$db->prepare($sql);
+		$req->bindValue(':nom',$nom);
+		$req->bindValue(':cinn',$cinn);
+		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+try{		
+		$req->execute();
+	    }
+        catch (Exception $e){
+            echo " Erreur ! ".$e->getMessage();
+        }
+		
+	}
 	function ajouterFid($fid){
 		$sql="insert into cartefid (num,nom,cinn) values (:num, :nom,:cinn)";
 		$db = config::getConnexion();

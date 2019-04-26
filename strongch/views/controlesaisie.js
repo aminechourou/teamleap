@@ -21,6 +21,7 @@ if(comailOk && comdpOk)
 
 }
 
+
 	function surligne(champ, erreur)
 
 	{
@@ -117,6 +118,30 @@ if(champ.value.length < 8 || champ.value.length > 8 || !regex.test(champ.value))
    }
 
 }
+function verifAge(champ)
+
+{
+
+   var regex = /^[0-9]*$/;
+if(champ.value.length < 2 || champ.value.length > 2 || !regex.test(champ.value) || champ.value<16)
+{
+
+      surligne(champ, true);
+
+      return false;
+
+   }
+   else
+
+   {
+
+      surligne(champ, false);
+
+      return true;
+
+   }
+
+}
 function verifCin1(champ)
 
 {
@@ -173,16 +198,14 @@ function verifForm(f)
 {
 
    var pseudoOk = verifPrenom(f.user);
-
    var telOk = verifCin(f.telephone);
-
    var mailOk = verifMail(f.mail);
    var mdpOk = verifPrenom(f.mdp);
    var cinOK = verifCin(f.cin);
-
+   var ageOK = verifAge(f.age);
    
 
-   if(pseudoOk && telOk && mailOk && mdpOk && cinOK)
+   if(pseudoOk && telOk && mailOk && mdpOk && cinOK && ageOK)
 
       return true;
 
@@ -190,7 +213,7 @@ function verifForm(f)
 
    {
 
-    swal('Veuillez remplir correctement tous les champs')
+    alert('Veuillez remplir correctement tous les champs');
 
 
       return false;
@@ -205,9 +228,33 @@ function verifForm1(f)
    var numOk = verifCin1(f.num);
 
     var nomOk = verifNom(f.nom);
-   var cinOk = verifCin(f.cin);
+ 
 
- if(numOk && nomOk && cinOk)
+ if(numOk && nomOk)
+
+      return true;
+
+   else
+
+   {
+
+      alert('Veuillez remplir correctement tous les champs');
+
+      return false;
+
+   }
+
+}
+function verifForm5(f)
+
+{
+
+   var ageOk = verifAge(f.age1);
+
+    var age1Ok = verifAge(f.age2);
+
+
+ if(ageOk && age1Ok)
 
       return true;
 

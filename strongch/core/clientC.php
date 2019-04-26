@@ -11,7 +11,7 @@ function afficherClient ($client){
 		echo $employe->getNbHeures() * $employe->getTarifHoraire();
 	}*/
 	function ajouterClient($client){
-		$sql="insert into client (user,telephone,mail,mdp,cin) values (:user, :telephone,:mail,:mdp,:cin)";
+		$sql="insert into client (user,telephone,mail,mdp,cin,age) values (:user, :telephone,:mail,:mdp,:cin,:age)";
 		$db = config::getConnexion();
 		try{
         $req=$db->prepare($sql);
@@ -21,11 +21,13 @@ function afficherClient ($client){
         $mail=$client->getmail();
         $mdp=$client->getmdp();
         $cin=$client->getcin();
+        $age=$client->getage();
 		$req->bindValue(':user',$user);
 		$req->bindValue(':telephone',$telephone);
 		$req->bindValue(':mail',$mail);
 		$req->bindValue(':mdp',$mdp);
 		$req->bindValue(':cin',$cin);
+		$req->bindValue(':age',$age);
 	   $req->execute();
          return true;  
         }
@@ -61,7 +63,7 @@ function afficherClient ($client){
         }
 	}
 	function modifierClient($client,$user){
-		$sql="UPDATE client SET user=:userr, telephone=:telephone,mail=:mail,mdp=:mdp,cin=:cin WHERE user=:user";
+		$sql="UPDATE client SET user=:userr, telephone=:telephone,mail=:mail,mdp=:mdp,cin=:cin,age=:age WHERE user=:user";
 		
 		$db = config::getConnexion();
 		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
@@ -72,14 +74,16 @@ try{
         $mail=$client->getmail();                              
         $mdp=$client->getmdp();
         $cin=$client->getcin();
+        $age=$client->getage();
     
-		$datas = array(':userr'=>$userr, ':user'=>$user, ':telephone'=>$telephone,':mail'=>$mail,':mdp'=>$mdp,':cin'=>$cin);
+		$datas = array(':userr'=>$userr, ':user'=>$user, ':telephone'=>$telephone,':mail'=>$mail,':mdp'=>$mdp,':cin'=>$cin,':age'=>$age);
 		$req->bindValue(':userr',$userr);
 		$req->bindValue(':user',$user);
 		$req->bindValue(':telephone',$telephone);
 		$req->bindValue(':mail',$mail);
 		$req->bindValue(':mdp',$mdp);
 		$req->bindValue(':cin',$cin);
+		$req->bindValue(':age',$age);
 	
 		
 		
@@ -127,6 +131,17 @@ try{
             die('Erreur: '.$e->getMessage());
         }
 	}
+	function recupererAge($age){
+		$sql="select * from client  where age='".$age."'";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
 		function recupererCmail($mail){
 		$sql="select * from client  where mail='".$mail."'";
 		$db = config::getConnexion();
@@ -161,7 +176,18 @@ try{
         }
 	}
 	function rechercherListeClients($user){
-		$sql="select * from client  where user like '%$user%'";
+		$sql="select * from client  where user or mail like '%$user%'";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+	function rechercherAges($age1,$age2){
+		$sql="select * from client  where age between $age1 and $age2";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);

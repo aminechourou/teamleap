@@ -2,7 +2,53 @@
 <html lang="en">
 
 <head>
+<?php
+  include "../entities/client.php";
+include "../core/clientC.php";
+    
+  $s=0;
+  $k=0;
+  $f=0;
+  $t=0;
+$clientC=new ClientC();
+$listeClients=$clientC->afficherClients();
+foreach($listeClients as $row){
+$s++;
+if(25>$row['age'])
+{
+$k++;
+}
+if(25<$row['age'])
+{
+$f++;
+}
+if($row['age']>45)
+{
+$t++;
+}
+}
+?>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['categories', 'Age'],
+          ['age inferieure a 25',<?php echo $k;?>],
+          ['age entre 26 et 45',<?php echo $f;?>],
+          ['age superieure a 45',<?php echo $t;?>]
+        ]);
 
+        var options = {
+          title: 'Age des visiteurs :',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,14 +67,7 @@
 </head>
 
 <body id="page-top">
-<?php
-include "../entities/client.php";
-include "../core/clientC.php";
-if (isset($_GET['user'])){
-  $clientC=new ClientC();
-  $result=$clientC->rechercherListeClients($_GET['user']);
-  $count=$result->rowCount();
-?>
+  
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -186,7 +225,7 @@ if (isset($_GET['user'])){
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="get">
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="get" action="rechercherclient.php">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" name="user" placeholder="Recherche avancée">
               <div class="input-group-append">
@@ -365,11 +404,22 @@ if (isset($_GET['user'])){
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"><?php echo "$count résultat(s) trouvé(s)" ?></h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>  Ajouter un nouveau client</a></div>
+       
           <!-- Content Row -->
           <div class="row">
-
+            <!-- Earnings (Monthly) Card Example -->
+            
+            <!-- Earnings (Monthly) Card Example -->
+     
+            <!-- Earnings (Monthly) Card Example -->
+   
+            <!-- Pending Requests Card Example -->
+ 
+          <!-- Content Row -->
+          <div class="row">
+            <!-- Area Chart -->
+            <!-- Pie Chart -->
+          </div>
           <!-- Content Row -->
           <div class="row">
             <!-- Content Column -->
@@ -377,47 +427,12 @@ if (isset($_GET['user'])){
               <!-- Page Heading -->
               <!-- DataTales Example -->
               <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Les données du Client: </h6>
-                </div>
+               
                 <div class="card-body">
                   <div class="table-responsive">
-           <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                      <thead>
-                        <tr>
-                          <th>pseudo</th>
-                          <th>telephone</th>
-                          <th>mail</th>
-                          <th>cin</th>
-                          <th>mdp</th>
-                          <th>Age</th>
-                       </tr>
-                      </thead>
-                      
-                      <tbody>
- <?php
- while($data=$result->fetch(PDO::FETCH_OBJ))
- {
-  ?>
-  <tr>
-  <td><?PHP echo $data->user; ?></td>
-  <td><?PHP echo $data->telephone; ?></td>
-  <td><?PHP echo $data->mail; ?></td>
-  <td><?PHP echo $data->cin; ?></td>
-  <td><?PHP echo $data->mdp; ?></td>
-  <td><?PHP echo $data->age; ?></td>
-  </tr>
-  <?php
-}
-}
-  ?>
-
-                    </tbody>
-                    </table>
+<div id="donutchart" style="width: 900px; height: 500px;"></div>
           
-       
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>

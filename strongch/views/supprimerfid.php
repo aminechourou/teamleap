@@ -13,12 +13,12 @@ echo '<body onLoad="alert(\'Carte fidélité supprimée avec succées...\')">';
   echo '<meta http-equiv="refresh" content="0;URL=indexon.php">';}
 
 else {echo '<body onLoad="alert(\'Vérifier le numéro de votre compte...\')">';
- echo '<meta http-equiv="refresh" content="0;URL=ModifierC.php">';}
+ echo '<meta http-equiv="refresh" content="0;URL=indexon.php">';}
 }
 else
 {
 echo '<body onLoad="alert(\'Vérifier le numéro de votre compte...\')">';
- echo '<meta http-equiv="refresh" content="0;URL=ModifierC.php">';
+ echo '<meta http-equiv="refresh" content="0;URL=indexon.php">';
 }
 
 ?>

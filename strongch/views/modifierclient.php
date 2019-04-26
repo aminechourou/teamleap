@@ -10,6 +10,7 @@ if (isset($_GET['user'])){
 		$mail=$row['mail'];
 		$mdp=$row['mdp'];
 		$cin=$row['cin'];
+		$age=$row['age'];
 ?>
 
 ?>	
@@ -407,6 +408,10 @@ if (isset($_GET['user'])){
 							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="number" name="cin" value="<?PHP echo $cin ?>" onblur="verifCin(this)" readonly>
 							
 						</div>
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="number" maxlength="2" name="age" value="<?PHP echo $age ?>" onblur="verifAge(this)">
+							
+						</div>
 
 						<input type="submit" name="modifier" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="modifier">
 						
@@ -421,7 +426,7 @@ if (isset($_GET['user'])){
 
 }}
 if (isset($_POST['modifier'])){
-	$client=new client($_POST['user'],$_POST['telephone'],$_POST['mail'],$_POST['mdp'],$_POST['cin']);
+	$client=new client($_POST['user'],$_POST['telephone'],$_POST['mail'],$_POST['mdp'],$_POST['cin'],$_POST['age']);
 	$clientC->modifierClient($client,$_POST['userr']);
 	echo '<body onLoad="alert(\'Compte modifié avec succés\')">';
   echo '<meta http-equiv="refresh" content="0;URL=indexon.php">';

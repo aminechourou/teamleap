@@ -24,9 +24,9 @@
 <?php
 include "../entities/client.php";
 include "../core/clientC.php";
-if (isset($_GET['user'])){
+if (isset($_GET['age1']) && isset($_GET['age2'])){
   $clientC=new ClientC();
-  $result=$clientC->rechercherListeClients($_GET['user']);
+  $result=$clientC->rechercherAges($_GET['age1'],$_GET['age2']);
   $count=$result->rowCount();
 ?>
   <!-- Page Wrapper -->
@@ -388,7 +388,6 @@ if (isset($_GET['user'])){
                           <th>pseudo</th>
                           <th>telephone</th>
                           <th>mail</th>
-                          <th>cin</th>
                           <th>mdp</th>
                           <th>Age</th>
                        </tr>
@@ -403,7 +402,6 @@ if (isset($_GET['user'])){
   <td><?PHP echo $data->user; ?></td>
   <td><?PHP echo $data->telephone; ?></td>
   <td><?PHP echo $data->mail; ?></td>
-  <td><?PHP echo $data->cin; ?></td>
   <td><?PHP echo $data->mdp; ?></td>
   <td><?PHP echo $data->age; ?></td>
   </tr>
