@@ -13,6 +13,29 @@ foreach($c as $row){}
 $commentaireC=new CommentaireC();
 
 			 			 ?>
+<?php
+$bdd = new PDO("mysql:host=127.0.0.1;dbname=snt;charset=utf8", "root", "");
+if(isset($_GET['reference']) AND !empty($_GET['reference'])) {
+   $getreference = htmlspecialchars($_GET['reference']);
+   $promo = $bdd->prepare('SELECT * FROM promo WHERE reference = ?');
+   $promo->execute(array($getreference));
+  
+      
+      $likes = $bdd->prepare('SELECT reference FROM likes WHERE reference = ?');
+      $likes->execute(array($getreference));
+      $likes = $likes->rowCount();
+      $dislikes = $bdd->prepare('SELECT reference FROM dislikes WHERE reference = ?');
+      $dislikes->execute(array($getreference));
+      $dislikes = $dislikes->rowCount();
+  $total=$likes + $dislikes;
+	$suml = (($likes * 100) / $total);
+	$sumd = (($dislikes * 100) / $total);
+	
+} else {
+   die('Erreur');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -491,9 +514,29 @@ while ($i <= $rating) {
 					
 						?>
 					<br />
-
-							
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="action.php?t=1&reference=<?= $getreference ?>"><img src="likes.png"  ><span class="mtext-106 cl2" style="position:relative; top:4px;left:-64px; color: white"><?= $likes ?></span></a><a href="action.php?t=2&reference=<?= $getreference ?>"><img src="dislikes.png"  > <span class="mtext-106 cl2" style="position:relative; top:4px;left:-122px; color: white"><?= $dislikes ?></span> </a>
+<br />
+					<br />
+					<br />
+				
+					      <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Stat Like And Dislike </h6>
+                </div>
+                <div class="card-body">
+					<h4 class="small font-weight-bold">Nombre de Like <span class="float-right"><?= $suml ?>%</span></h4>
+                  <div class="progress mb-4">
+                    <div class="progress-bar" role="progressbar" style="width: <?= $suml ?>%" aria-valuenow="<?= $suml ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="small font-weight-bold">Nombre de Dislike <span class="float-right"><?= $sumd ?>%</span></h4>
+                  <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $sumd ?>%" aria-valuenow="<?= $sumd ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                 
+					</div>
+					</div>
   <input type="hidden" value="<?PHP echo $row['reference']; ?>" name="reference">
+					<br />
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-204 flex-w flex-m respon6-next">
 									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -511,6 +554,7 @@ while ($i <= $rating) {
 									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 										Add to cart
 									</button>
+									
 								</div>
 							</div>	
 						</div>

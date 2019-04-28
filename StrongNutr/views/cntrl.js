@@ -1,3 +1,12 @@
+/*jslint devel: true */
+
+/*global
+alert
+*/
+/*exported verifForm */
+/*jshint unused:false*/
+
+
 function surligne(champ,erreur)
 
 	{
@@ -95,17 +104,16 @@ function verifForm(f)
 
    
 
-   if ( refOk && aprixOk && nprixOk)
-
+   if ( refOk && aprixOk && nprixOk){
+ 
       return true;
 
-   else
-
-   {
-
-      alert("Veuillez remplir correctement tous les champs");
+   }else { 
+	 
+	 alert('Veuillez remplir correctement tous les champs');
        return false;
+	    
 
-   }
+   } 
 
-}
+} 

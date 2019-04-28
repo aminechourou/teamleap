@@ -26,7 +26,7 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
 <html lang="en">
 
 <head>
-
+<script type="text/javascript" src="cntrl.js"></script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -57,7 +57,7 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
       <div class="sidebar-brand-icon rotate-n-1">
-      <img src="images/icons/logo-01.png" alt="IMG-LOGO" width="80px" height="60px">
+      <img src="images/icons/logo-01.png" alt="IMG-LOGO" width="60px" height="60px">
         </div>
         <div class="sidebar-brand-text mx-3">snt <sup>Dashboard</sup></div>
       </a>

@@ -20,7 +20,7 @@ if( !empty($_GET['reference']) && !empty($_GET['nom']) && !empty($_GET['aprix'])
 $promo=new Promo($reference,$nom,$aprix,$taux,$nprix,$quantite,$etat,$image,$datee);
  $promoC=new PromoC();
  $mes=$promoC->ajouter($promo);
-if ($mes==true)
+if ($mes==true){
 	//echo "Ajout avec succées " ;
 	$to='aziz.arfaou.98@gmail.com';
 $sujet='nouvelle promotion ajouter';
@@ -28,11 +28,10 @@ $texte="nouvelle promotion ajouter";
 $header='From : test@gmail.com';
 mail($to,$sujet,$texte,$header);
 	header('Location: reduc.php');
-	
-}}else{
-	 echo '<body onLoad="alert(\'remplir tout les champs\')">'; 
-         // puis on le redirige vers la page d'accueil
-         echo '<meta http-equiv="refresh" content="0;URL=promp.html">'; 
-	
 }
+}else{
+ echo '<body onLoad="alert(\'Veuillez remplir correctement tous les champs\')">'; 
+         // puis on le redirige vers la page d'accueil
+         echo '<meta http-equiv="refresh" content="0;URL=promo.html">'; 
+}}
 ?>
