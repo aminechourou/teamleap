@@ -388,7 +388,9 @@ if (isset($_GET['user'])){
                           <th>pseudo</th>
                           <th>telephone</th>
                           <th>mail</th>
+                          <th>cin</th>
                           <th>mdp</th>
+                          <th>Age</th>
                        </tr>
                       </thead>
                       
@@ -401,7 +403,9 @@ if (isset($_GET['user'])){
   <td><?PHP echo $data->user; ?></td>
   <td><?PHP echo $data->telephone; ?></td>
   <td><?PHP echo $data->mail; ?></td>
+  <td><?PHP echo $data->cin; ?></td>
   <td><?PHP echo $data->mdp; ?></td>
+  <td><?PHP echo $data->age; ?></td>
   </tr>
   <?php
 }

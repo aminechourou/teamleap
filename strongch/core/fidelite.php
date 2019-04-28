@@ -4,23 +4,39 @@ class FidC {
 function afficherFid ($fid){
 		echo "numéro: ".$fid->getfid()."<br>";
 		echo "Nom: ".$fid->getnom()."<br>";
-		echo "cin: ".$fid->getcin()."<br>";
+		echo "cinn: ".$fid->getcinn()."<br>";
 	}
 	/*function calculerSalaire($employe){
 		echo $employe->getNbHeures() * $employe->getTarifHoraire();
 	}*/
+		function modifierFide($nom,$cinn){
+		$sql="UPDATE cartefid SET nom=:nom ,modifiercarte=modifiercarte+1 WHERE cinn=:cinn";
+		
+		$db = config::getConnexion();
+		$req=$db->prepare($sql);
+		$req->bindValue(':nom',$nom);
+		$req->bindValue(':cinn',$cinn);
+		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+try{		
+		$req->execute();
+	    }
+        catch (Exception $e){
+            echo " Erreur ! ".$e->getMessage();
+        }
+		
+	}
 	function ajouterFid($fid){
-		$sql="insert into cartefid (num,nom,cin) values (:num, :nom,:cin)";
+		$sql="insert into cartefid (num,nom,cinn) values (:num, :nom,:cinn)";
 		$db = config::getConnexion();
 		try{
         $req=$db->prepare($sql);
 		
         $num=$fid->getnum();
         $nom=$fid->getnom();
-        $cin=$fid->getcin();
+        $cinn=$fid->getcinn();
 		$req->bindValue(':num',$num);
 		$req->bindValue(':nom',$nom);
-		$req->bindValue(':cin',$cin);
+		$req->bindValue(':cinn',$cinn);
 	   $req->execute();
          return true;  
         }
@@ -54,6 +70,17 @@ function afficherFid ($fid){
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
         }
+        function recupererid($num){
+		$sql="select * from cartefid  where num='".$num."'";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
 	}/*
 	function modifierClient($client,$user){
 		$sql="UPDATE client SET user=:user, telephone=:telephone,mail=:mail,mdp=:mdp WHERE user=:user";
@@ -86,9 +113,9 @@ try{
   print_r($datas);
         }
 		
-	}
-	function recupererClient($user){
-		$sql="SELECT * from client where user=:user";
+	}*/
+	function recupererCin($cinn){
+		$sql="select * from cartefid  where cinn='".$cinn."'";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);

@@ -4,6 +4,14 @@ include "../core/clientC.php";
 if (isset($_GET['user'])){
 	$clientC=new ClientC();
     $result=$clientC->recupererClient($_GET['user']);
+    foreach($result as $row){
+		$user=$row['user'];
+		$telephone=$row['telephone'];
+		$mail=$row['mail'];
+		$mdp=$row['mdp'];
+		$cin=$row['cin'];
+		$age=$row['age'];
+?>
 
 ?>	
 
@@ -85,7 +93,7 @@ if (isset($_GET['user'])){
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li>
-								<a href="index.html">Accueil</a>
+								<a href="indexon.php">Accueil</a>
 								
 							</li>
 
@@ -141,7 +149,7 @@ if (isset($_GET['user'])){
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="indexon.php"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -200,9 +208,9 @@ if (isset($_GET['user'])){
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="indexon.php">Home</a>
 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
+						<li><a href="indexon.php">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
 						<li><a href="home-03.html">Homepage 3</a></li>
 					</ul>
@@ -372,24 +380,6 @@ if (isset($_GET['user'])){
 	<section class="bg0 p-t-104 p-b-116">
 		<div class="container">
 		  <div class="flex-w flex-tr">
-				
-
-				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-					<form name="f1" method="post" action="supprimerclient.php">
-						<h4 class="mtext-105 cl2 txt-center p-b-30">
-						Supprimer votre compte
-						</h4>
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="user" placeholder="pseudo" onblur="verifPrenom(this)" >
-							
-						</div>
-					
-
-						<button input type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" value="supprimer">
-					Supprimer
-						</button>
-					</form>
-				</div>
 			  <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
 
 				
@@ -398,19 +388,28 @@ if (isset($_GET['user'])){
 						</h4>
 					<form name="f1" method="post" onsubmit="return verifForm(this)">
 						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="user"value="<?PHP echo $_GET['user'] ?>" onblur="verifPrenom(this)" readonly>
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="user"value="<?PHP echo $user ?>" onblur="verifPrenom(this)" readonly>
 							
 						</div>
 						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="telephone" placeholder="Nouveau telephone" maxlength="8" onblur="verifCin(this)">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="telephone" value="<?PHP echo 
+							$telephone ?>" maxlength="8" onblur="verifCin(this)">
 							
 						</div>
 						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="mail" placeholder="Nouvelle adresse e-mail" onblur="verifMail(this)">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="mail" value="<?PHP echo $mail ?>" onblur="verifMail(this)">
 							
 						</div>
 						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="mdp" placeholder="Nouveau mot de passe" onblur="verifPrenom(this)">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="mdp" value="<?PHP echo $mdp ?>" onblur="verifPrenom(this)">
+							
+						</div>
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="number" name="cin" value="<?PHP echo $cin ?>" onblur="verifCin(this)" readonly>
+							
+						</div>
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="number" maxlength="2" name="age" value="<?PHP echo $age ?>" onblur="verifAge(this)">
 							
 						</div>
 
@@ -425,10 +424,12 @@ if (isset($_GET['user'])){
 			
 										<?php
 
-}
+}}
 if (isset($_POST['modifier'])){
-	$client=new client($_POST['user'],$_POST['telephone'],$_POST['mail'],$_POST['mdp']);
+	$client=new client($_POST['user'],$_POST['telephone'],$_POST['mail'],$_POST['mdp'],$_POST['cin'],$_POST['age']);
 	$clientC->modifierClient($client,$_POST['userr']);
+	echo '<body onLoad="alert(\'Compte modifié avec succés\')">';
+  echo '<meta http-equiv="refresh" content="0;URL=indexon.php">';
 }
 ?>
 				</div>
