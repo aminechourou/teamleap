@@ -94,7 +94,7 @@ function VerifForm(fou)
    	var quantiteOk = Verifprix(fou.quantiteprod);
 
 
-   if(IDOk || nomOk || catOk || prixOk || quantiteOk)
+   if(IDOk && nomOk && catOk && prixOk && quantiteOk)
 
       return true;
 

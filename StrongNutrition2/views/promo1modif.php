@@ -1,28 +1,36 @@
 <?php
 include "../entities/Produit.php";
 include "../core/ProduitC.php";
+//  if (isset($_GET['idprod'])){
+$produitC=new ProduitC();
+$produitAM=$produitC->recupererprod($_GET['idprod']);
+$listeprod=$produitC->afficherptoduit();
+$c=$produitAM->fetchAll();
+foreach($c as $row){}
+?>
+<?php
 
-if( isset($_GET['idprod']) && isset($_GET['nomprod']) && isset($_GET['referenceprod'] ) && isset($_GET['categorieprod'] ) && isset($_GET['prixprod'] ) && isset($_GET['etatprod'] ) && isset($_GET['quantiteprod'] ) && isset($_GET['imageprod'] ) ){
-   $produitC=new ProduitC();
-    $result=$produitC->recupererprod($_GET['idprod']);
-  foreach($result as $row){
-    $idprod=$row['idprod'];
-    $nomprod=$row['nomprod'];
-    $referenceprod=$row['referenceprod'];
-    $categorieprod=$row['categorieprod'];
-    $prixprod=$row['prixprod'];
-    $etatprod=$row['etatprod'];
-    $quantiteprod=$row['quantiteprod'];
-    $imageprod=$row['imageprod'];
-}}
+	if(  isset($_GET['nomprod']) && isset($_GET['referenceprod'] ) && isset($_GET['categorieprod'] )  && isset($_GET['prixprod'] )  && isset($_GET['etatprod'] )  && isset($_GET['quantiteprod'] )  && isset($_GET['imageprod'] ))
+  {
+		$produit1C=new produitC();
+	    $result1=$produit1C->recupererprod($_GET['idprod']);
 
-  if (isset($_GET['modifier'])){
 
-  $produit=new Produit($_GET['idprod'],$_GET['nomprod'],$_GET['referenceprod'],$_GET['categorieprod'],$_GET['prixprod'],$_GET['etatprod'],$_GET['quantiteprod'],$_GET['imageprod']);
+
+
+foreach($result1 as $row){
+
+if (isset($_GET['modifier'])  ){
+
+$produit=new Produit($_GET['nomprod'],$_GET['referenceprod'],$_GET['categorieprod'],$_GET['prixprod'],$_GET['etatprod'],$_GET['quantiteprod'],$_GET['imageprod']);
 $produitC->modifierprod($produit,$_GET['idprod']);
-  header('Location: produit.php');
+
 
 }
+header('Location: produit.php');
+} }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,6 +55,8 @@ $produitC->modifierprod($produit,$_GET['idprod']);
 </head>
 
 <body id="page-top">
+
+
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -396,39 +406,35 @@ $produitC->modifierprod($produit,$_GET['idprod']);
 			 <div class="card-body">
             <div class="table-responsive">
 
+
 				<form method="GET">
 
 							<table>
 
 	<thead>
   <tr>
-<td><th> Id du Produit à modifier&nbsp; &nbsp; </th></td>
-  <th>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="010101" onBlur="VerifID(this)" name="idprod" required minlength="6" maxlength="6">
-
-  </th>
-</tr>
+<td><th> Id du Produit à modifier &nbsp; &nbsp; </th></td>
+<td><input value="<?PHP echo $_GET['idprod'];  ?>" type="number" name="idprod"  width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" disabled></td>
 			</thead>
   <tr>
-    <td><th>Nom du Produit&nbsp; &nbsp; </th>
+    <td><th>Nom du Produit &nbsp; &nbsp; </th>
   <td>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="NomCatégorie" onBlur="VerifNom(this)" name="nomprod">
+  <input value="<?PHP echo $row['nomprod'];  ?>" width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" name="nomprod"  </input>
   </td></tr>
-
   <tr>
     <td><th>Référence du Produit&nbsp; </th></td>
   <td>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="06lmbs" required onBlur="VerifDescription(this)" name="referenceprod">
+  <input value="<?PHP echo $row['referenceprod'];?>" width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" required onBlur="VerifDescription(this)" name="referenceprod">
   </td></tr>
 			<tr>
     <td><th>Catégorie du Produit&nbsp; &nbsp; </th>
   <td>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="NomCatégorie" onBlur="VerifNom(this)" name="categorieprod">
+  <input value="<?PHP echo $row['categorieprod'];?>" width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" onBlur="VerifNom(this)" name="categorieprod">
   </td></tr>
  <tr>
     <td><th>Prix en dinars</th>
   <td>
-  <input width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="NomCatégorie" onBlur="VerifNom(this)" name="prixprod">
+  <input value="<?PHP echo $row['prixprod'];?>" width="10%" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="120" onBlur="VerifNom(this)" name="prixprod">
   </td></tr>
 <tr>
     <td><th>Etat du Produit&nbsp; &nbsp; </th>
@@ -442,19 +448,20 @@ $produitC->modifierprod($produit,$_GET['idprod']);
 
 <tr>
     <td><th>Quantité</th>
-  <th> <input width="10%" type="number" name="quantiteprod" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="0" min="0" max="100"> </th>
+  <th> <input value="<?PHP echo $row['quantiteprod'];?>" width="10%" type="number" name="quantiteprod" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" min="0" max="100"> </th>
   </tr>
 <tr>
     <td><th>Image du Produit&nbsp; &nbsp; </th>
-  <th> <input type="file" name="imageprod" id="icone" /><br /> </th></tr>
+  <th> <input value="cozastore_2/<?PHP echo $row['imageprod'];?>" type="file" name="imageprod" id="icone" /><br /> </th></tr>
   <br>
   <tr> <br>
     <td></td>
 	  <br>
 	  <br>
 
+    <input type="hidden" value="<?PHP echo $row['idprod']; ?>" name="idprod">
   <th> <br> <br> <br> <br><td>
-  <i class="fas fa-pen"></i><input type="submit" value="Valider la modification"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"onClick="verifForm(this)" name="modifier"> </th>
+  <i class="fas fa-pen"></i><a href="promo1modif.php?idprod=idorod"></a><input type="submit" value="valider"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"onClick="verifForm(this)" name="modifier" href="produit.php" </th>
   </td></tr>
   </table>
 </form>
