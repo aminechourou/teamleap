@@ -1,5 +1,5 @@
 <?php
-
+session_start ();
  include "../core/PromoC.php";
                $promoC=new PromoC();
                 $listestat=$promoC->afficherstat();
@@ -26,6 +26,8 @@ if (isset($_POST["supprimer"])){
   <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
+	<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
@@ -371,7 +373,23 @@ if (isset($_POST["supprimer"])){
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Arfaoui Mohamed Aziz</span>
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php   
+ 
+// On récupère nos variables de session
+if (isset($_SESSION['l']) && isset($_SESSION['p'])) 
+{ 
+
+	 echo $_SESSION['r']; 
+	
+
+}
+
+else { 
+	echo "Mon Compte";
+    
+	  
+
+}   ?></span>
                 <img class="img-profile rounded-circle" src="cv.png">
               </a>
               <!-- Dropdown - User Information -->
@@ -391,8 +409,8 @@ if (isset($_POST["supprimer"])){
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
+               <?php echo '<a href="./logout.php" class="dropdown-item" >Logout</a>';?>
+                
               </div>
             </li>
 
@@ -430,7 +448,7 @@ if (isset($_POST["supprimer"])){
 								<td><h6 class="m-0 font-weight-bold text-primary">Promotion </h6></td>
 								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
 								
-								<td><a href="promo.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>  Ajouter  Promotion </a>
+								<td><a href="promo.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>  Ajouter  Promotion </a>
 					</td> 		
 				  </tr> 
 							<tr> 
@@ -492,7 +510,7 @@ if (isset($_POST["supprimer"])){
   <td> <a href="modifpromo.php?reference=<?PHP echo $row['reference']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit"></i> </i> Modifier Promo</a>
 						  <form method="POST">
 							  </br>
-						  <input type="submit" name="supprimer" value=" Supprimer  Promo"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"    >
+						  <input type="submit" name="supprimer" value=" Supprimer  Promo"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"    onclick="return confirm('Voulez-vous vraiment suprimer cette promotion ?')";>
 						  <input type="hidden" name="reference" value="<?PHP echo $row['reference'];  ?>" ></form>
 				  </td>
                         </tr>
@@ -522,7 +540,7 @@ if (isset($_POST["supprimer"])){
 						  <form method="POST">
 							  </br>
 						  <input type="submit" name="supprimer" value=" Supprimer  Promo"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" 
-								 >
+								onclick="return confirm('Voulez-vous vraiment suprimer cette promotion ?')"; >
 						  <input type="hidden" name="reference" value="<?PHP echo $row['reference'];  ?>" ></form>
 				  </td>
                         </tr>

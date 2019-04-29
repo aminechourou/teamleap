@@ -485,11 +485,13 @@ while ($i <= $rating) {
 	?>
 				
 	<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+			
 				<?php
 		}
-		}  else{	
+		 ?>	</span>  <?php }else{	
 			?>
-				</span>
+				
+						
 									
 					
 						
@@ -504,16 +506,44 @@ while ($i <= $rating) {
 														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
 														<input class="dis-none" type="number" name="rating" >
 														<input type="submit" value="Noter" name="noter" />
+														
 
 
 								</form>
 
 								</span>
 							</div>
-					<?php }			
+					<?php }	
+$fiveetoile = $bdd->prepare('SELECT reference FROM etoile WHERE reference = ? AND note = ? ');
+      $fiveetoile->execute(array($getreference,5));
+      $fiveetoile = $fiveetoile->rowCount();
+$fouretoile = $bdd->prepare('SELECT reference FROM etoile WHERE reference = ? AND note = ? ');
+     $fouretoile->execute(array($getreference,4));
+      $fouretoile = $fouretoile->rowCount();
+							 $threeetoile = $bdd->prepare('SELECT reference FROM etoile WHERE reference = ? AND note = ? ');
+      $threeetoile->execute(array($getreference,3));
+      $threeetoile = $threeetoile->rowCount();
+							
+							$twoetoile = $bdd->prepare('SELECT reference FROM etoile WHERE reference = ? AND note = ? ');
+      $twoetoile->execute(array($getreference,2));
+      $twoetoile = $twoetoile->rowCount();
+							$oneetoile = $bdd->prepare('SELECT reference FROM etoile WHERE reference = ? AND note = ? ');
+      $oneetoile->execute(array($getreference,1));
+      $oneetoile = $oneetoile->rowCount();
+							$zeroetoile = $bdd->prepare('SELECT reference FROM etoile WHERE reference = ? AND note = ? ');
+      $zeroetoile->execute(array($getreference,0));
+      $zeroetoile = $zeroetoile->rowCount();
+$totalvote=$fiveetoile + $fouretoile + $threeetoile +$twoetoile + $oneetoile + $zeroetoile;
+	$moyenne=((($fiveetoile * 5) + ($fouretoile * 4) + ($threeetoile * 3)	+ ($twoetoile * 2) + ($oneetoile * 1)) / $totalvote);
+	//echo $moyenne;
 					
 						?>
 					<br />
+					<span class="mtext-106 cl2">Note Moyenne :</span>&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="mtext-106 cl2" style="color: goldenrod"><?php echo number_format($moyenne, 2);
+	;?>/5</span>
+					<br />
+						<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="action.php?t=1&reference=<?= $getreference ?>"><img src="likes.png"  ><span class="mtext-106 cl2" style="position:relative; top:4px;left:-64px; color: white"><?= $likes ?></span></a><a href="action.php?t=2&reference=<?= $getreference ?>"><img src="dislikes.png"  > <span class="mtext-106 cl2" style="position:relative; top:4px;left:-122px; color: white"><?= $dislikes ?></span> </a>
 <br />
 					<br />

@@ -1,4 +1,5 @@
 <?php
+session_start ();
 include "../core/PackC.php";
 include "../entities/Pack.php";
 $packC=new PackC();
@@ -39,7 +40,9 @@ $pack=new Pack($_GET['reference'],$_GET['nom'],$_GET['description'],$_GET['prix'
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-<script src="controlesaisie.js">
+	<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="cll1.js"></script>
 </script>
 </head>
 
@@ -347,7 +350,23 @@ $pack=new Pack($_GET['reference'],$_GET['nom'],$_GET['description'],$_GET['prix'
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Arfaoui Mohamed Aziz</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php   
+ 
+// On récupère nos variables de session
+if (isset($_SESSION['l']) && isset($_SESSION['p'])) 
+{ 
+
+	 echo $_SESSION['r']; 
+	
+
+}
+
+else { 
+	echo "Mon Compte";
+    
+	  
+
+}   ?></span>
                 <img class="img-profile rounded-circle" src="cv.png">
               </a>
               <!-- Dropdown - User Information -->
@@ -367,7 +386,7 @@ $pack=new Pack($_GET['reference'],$_GET['nom'],$_GET['description'],$_GET['prix'
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                   <?php echo '<a href="./logout.php" class="dropdown-item" >Logout</a>';?>
                 </a>
               </div>
             </li>
@@ -398,9 +417,10 @@ $pack=new Pack($_GET['reference'],$_GET['nom'],$_GET['description'],$_GET['prix'
               <h6 class="m-0 font-weight-bold text-primary">&nbsp;</h6>
             </div>
 			<form method="GET" >
-			  <form name="f">
+			  
             <div class="card-body">
               <div class="table-responsive">
+				   <form name="f" onsubmit="return verifForm(this);">
                 <table  id="dataTable" width="60%" border="0px" cellspacing="0">
                   <thead>
                     <tr>
@@ -415,7 +435,7 @@ $pack=new Pack($_GET['reference'],$_GET['nom'],$_GET['description'],$_GET['prix'
                     <tr>
                       <th>Nom Pack</th>
                       <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="nom" value="<?PHP echo $row['nom'];  ?>"  >
+						  <input width="10%" type="text" class="form-control form-control-user" id="nom" onblur="verifnom(this);" name="nom" value="<?PHP echo $row['nom'];  ?>"  >
 					  </th>
 
                     </tr>
@@ -424,7 +444,7 @@ $pack=new Pack($_GET['reference'],$_GET['nom'],$_GET['description'],$_GET['prix'
                     <tr>
                       <th> Description </th>
                       <th>
-						  <input width="10%"  type="text"  name="description" class="form-control form-control-user" id="taux"  value="<?PHP echo $row['description'];  ?>" >
+						  <input width="10%"  type="text"  name="description" class="form-control form-control-user" id="description" onblur="verifdes(this);"  value="<?PHP echo $row['description'];  ?>" >
 
 						</th>
 
@@ -435,7 +455,7 @@ $pack=new Pack($_GET['reference'],$_GET['nom'],$_GET['description'],$_GET['prix'
                     <tr>
                       <th>Prix  Pack</th>
                       <th>
-					    <input width="10%" type="text" name="prix" class="form-control form-control-user" id="exampleInputEmail"  value="<?PHP echo $row['prix'];  ?>" onblur="verifNPrix(this)">
+					    <input width="10%" type="text" name="prix" class="form-control form-control-user" id="exampleInputEmail"  value="<?PHP echo $row['prix'];  ?>" onblur="verifprix(this)">
 					  </th>
 
                     </tr>

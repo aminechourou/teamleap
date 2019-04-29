@@ -1,4 +1,5 @@
 <?php
+session_start ();
 include "../core/PromoC.php";
 include "../entities/Promo.php";
 $promoC=new PromoC();
@@ -26,7 +27,7 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
 <html lang="en">
 
 <head>
-<script type="text/javascript" src="cntrl.js"></script>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,8 +42,9 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-<script src="controlesaisie.js">
-</script>
+	<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="cll.js"></script>
 </head>
 
 <body id="page-top">
@@ -234,7 +236,7 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
                     </div>
                   </div>
 
-              </div>
+              </form></div>
             </li>
 
             <!-- Nav Item - Alerts -->
@@ -347,7 +349,23 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Arfaoui Mohamed Aziz</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php   
+ 
+// On récupère nos variables de session
+if (isset($_SESSION['l']) && isset($_SESSION['p'])) 
+{ 
+
+	 echo $_SESSION['r']; 
+	
+
+}
+
+else { 
+	echo "Mon Compte";
+    
+	  
+
+}   ?></span>
            <img class="img-profile rounded-circle" src="cv.png">
               </a>
               <!-- Dropdown - User Information -->
@@ -367,14 +385,14 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                      <?php echo '<a href="./logout.php" class="dropdown-item" >Logout</a>';?>
                 </a>
               </div>
             </li>
 
           </ul>
 
-        </nav>
+        </form></nav>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
@@ -397,7 +415,7 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
               <h6 class="m-0 font-weight-bold text-primary"><em class="fas fa-plus-square"> &nbsp; Modifier un produit en promos</em></h6>
               <h6 class="m-0 font-weight-bold text-primary">&nbsp;</h6>
             </div>
-			  <form name="f">
+			  <form name="f" onsubmit="return verifForm(this);">
             <div class="card-body">
               <div class="table-responsive">
                 <table  id="dataTable" width="60%" border="0px" cellspacing="0">
@@ -414,7 +432,7 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
                     <tr>
                       <th>Nom Produit</th>
                       <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="nom" value="<?PHP echo $row['nom'];  ?>" >
+						  <input width="10%" type="text" class="form-control form-control-user" id="nom" name="nom" onblur="verifnom(this);" value="<?PHP echo $row['nom'];  ?>" >
 					  </th>
 
                     </tr>
@@ -423,7 +441,7 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
                     <tr>
                       <th>Ancien Prix</th>
                       <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="aprix" value="<?PHP echo $row['aprix'];  ?>" onblur="verifAPrix(this)">
+						  <input width="10%" type="text" class="form-control form-control-user" id="aprix" name="aprix" onblur="verifaprix(this);"value="<?PHP echo $row['aprix'];  ?>" >
 					  </th>
 
                     </tr>
@@ -443,7 +461,7 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
                     <tr>
                       <th>Prix apres Promotion</th>
                       <th>
-					    <input width="10%" type="text" name="nprix" class="form-control form-control-user" id="exampleInputEmail"  value="<?PHP echo $row['nprix'];  ?>" onblur="verifNPrix(this)">
+					    <input width="10%" type="text" name="nprix" class="form-control form-control-user" id="exampleInputEmail"  value="<?PHP echo $row['nprix'];  ?>" onblur="verifnprix(this);">
 					  </th>
 
                     </tr>
@@ -492,8 +510,8 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
                   </thead>
                 </table>
 			   <br>
-	 <input type="submit" name="modifier" value="Modifier une Promo"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="verifForm()" >
-
+	 <input type="submit" name="modifier" value="Modifier une Promo"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onsubmit="verifForm(this);" >
+				</div></div>  </form>
 						</div>
             </div>
 
@@ -504,10 +522,10 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
 
       <!-- Footer -->      <!-- End of Footer -->
 
-    </div>
+    
     <!-- End of Content Wrapper -->
 
-  </div>
+  
   <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
@@ -534,10 +552,9 @@ $promo=new Promo($_GET['reference'],$_GET['nom'],$_GET['aprix'],$_GET['taux'],$_
     </div>
   </div>
 
-	</form>
+	
 	   </form>
-		 </form>
-	 </form>
+	
 
 	</body>
 

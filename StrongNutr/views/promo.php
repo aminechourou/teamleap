@@ -1,3 +1,40 @@
+<?php
+session_start ();
+include "../core/PromoC.php";
+include "../entities/Promo.php";
+
+if( isset($_GET['reference']) && isset($_GET['nom']) && isset($_GET['aprix']) && isset($_GET['taux']) && isset($_GET['nprix']) && isset($_GET['quantite']) && isset($_GET['etat']) && isset($_GET['image']) && isset($_GET['datee']) && isset($_GET['mailform']) )
+{
+$reference=$_GET['reference'];
+	$nom=$_GET['nom'];
+$aprix=$_GET['aprix'];
+$taux=$_GET['taux'];
+$nprix=$_GET['nprix'];
+$quantite=$_GET['quantite'];
+$etat=$_GET['etat'];
+	$image=$_GET['image'];
+$datee=$_GET['datee'];
+
+if( !empty($_GET['reference']) && !empty($_GET['nom']) && !empty($_GET['aprix']) && !empty($_GET['taux']) && !empty($_GET['nprix']) && !empty($_GET['quantite']) && !empty($_GET['etat']) && !empty($_GET['image']) && !empty($_GET['datee']) )
+{
+$promo=new Promo($reference,$nom,$aprix,$taux,$nprix,$quantite,$etat,$image,$datee);
+ $promoC=new PromoC();
+ $mes=$promoC->ajouter($promo);
+if ($mes==true){
+	//echo "Ajout avec succées " ;
+	$to='aziz.arfaou.98@gmail.com';
+$sujet='nouvelle promotion ajouter';
+$texte="nouvelle promotion ajouter";
+$header='From : test@gmail.com';
+mail($to,$sujet,$texte,$header);
+	header('Location: reduc.php');
+}
+}else{
+ echo '<body onLoad="alert(\'Veuillez remplir correctement tous les champs\')">'; 
+         // puis on le redirige vers la page d'accueil
+         echo '<meta http-equiv="refresh" content="0;URL=promo.html">'; 
+}}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,12 +54,13 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-<script src="cntrl.js">
-</script>
+	<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="cll.js"></script>
 </head>
 
 <body id="page-top">
-		<form method="GET" action ="ajouter_promo.php">
+		<form method="GET" >
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -323,8 +361,24 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Arfaoui Mohamed Aziz</span>
-           <img alt="ff" class="img-profile rounded-circle" src="cv.png">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php   
+ 
+// On récupère nos variables de session
+if (isset($_SESSION['l']) && isset($_SESSION['p'])) 
+{ 
+
+	 echo $_SESSION['r']; 
+	
+
+}
+
+else { 
+	echo "Mon Compte";
+    
+	  
+
+}   ?></span>
+           <img class="img-profile rounded-circle" src="cv.png">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -343,14 +397,14 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                    <?php echo '<a href="./logout.php" class="dropdown-item" >Logout</a>';?>
                 </a>
               </div>
             </li>
 
           </ul>
 
-        </form></nav>
+        </nav>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
@@ -392,7 +446,7 @@
                     <tr>
                       <th>Nom Produit</th>
                       <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="nom" value="" >
+						  <input width="10%" type="text" class="form-control form-control-user" id="nom" name="nom" onblur="verifnom(this);"value="" >
 					  </th>
 
                     </tr>
@@ -469,7 +523,7 @@
                     <tr> </tr>
                   </thead>
                 </table>
-			   <br />
+			   </br>
 	 <input type="submit" name="mailform" value="Ajouter une Promo"  onsubmit="verifForm(this);" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" >
 				  </form>
 						</div>
@@ -537,9 +591,12 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
-
+<script src="sweetalert2.all.min.js"></script>
+<!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 			</form>
-	
+	</form>
+	  </form>
 </body>
 
 </html>

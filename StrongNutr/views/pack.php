@@ -1,5 +1,5 @@
 <?php
-
+session_start ();
  include "../core/PackC.php";
                $packC=new PackC();
                 $listestat=$packC->afficherstat();
@@ -366,7 +366,23 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Arfaoui Mohamed Aziz</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php   
+ 
+// On récupère nos variables de session
+if (isset($_SESSION['l']) && isset($_SESSION['p'])) 
+{ 
+
+	 echo $_SESSION['r']; 
+	
+
+}
+
+else { 
+	echo "Mon Compte";
+    
+	  
+
+}   ?></span>
                 <img class="img-profile rounded-circle" src="cv.png">
               </a>
               <!-- Dropdown - User Information -->
@@ -386,7 +402,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                 <?php echo '<a href="./logout.php" class="dropdown-item" >Logout</a>';?>
                 </a>
               </div>
             </li>
@@ -425,7 +441,7 @@
 								<td><h6 class="m-0 font-weight-bold text-primary">Pack </h6></td>
 								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
 								
-								<td><a href="AjoutPack.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>  Ajouter  Pack </a>
+								<td><a href="AjoutPack.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle"></i> </i>  Ajouter  Pack </a>
 					</td> 		
 				  </tr> 
 							<tr> 
@@ -487,7 +503,7 @@
 							<td> <a href="modifpack.php?reference=<?PHP echo $row['reference']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit"></i> </i> Modifier Pack</a>
 						  <form method="POST">
 							  </br>
-						  <input type="submit" name="supprimer" value=" Supprimer  Pack"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"   >
+						  <input type="submit" name="supprimer" value=" Supprimer  Pack"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"   onclick="return confirm('Voulez-vous vraiment suprimer cette Pack ?')";>
 						  <input type="hidden" name="reference" value="<?PHP echo $row['reference'];  ?>" ></form>
 				  </td>
 
@@ -507,7 +523,7 @@
 							<td> <a href="modifpack.php?reference=<?PHP echo $row['reference']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit"></i> </i> Modifier Pack</a>
 						  <form method="POST">
 							  </br>
-						  <input type="submit" name="supprimer" value=" Supprimer  Pack"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"   >
+						  <input type="submit" name="supprimer" value=" Supprimer  Pack"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"   onclick="return confirm('Voulez-vous vraiment suprimer cette Pack ?')"; >
 						  <input type="hidden" name="reference" value="<?PHP echo $row['reference'];  ?>" ></form>
 				  </td>
 

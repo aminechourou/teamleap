@@ -1,16 +1,46 @@
 <?php
-			  include "../core/PackC.php";
-			$packC=new PackC();
-			$listePack=$packC->afficherpack();
-			 			/* include "../core/PackC.php";
-			 			$packC=new PackC();
-			 			$listePack=$packC->afficherpack();*/
+session_start ();  
+include "../core/PackC.php";
+include "../entities/Pack.php";
+include "../core/CommentaireC1.php";
+$packC=new PackC();
+$packAM=$packC->recupererpack($_GET['reference']);
+$getreference = htmlspecialchars($_GET['reference']);
+ $listePack=$packC->afficherpack();
+
+$c=$packAM->fetchAll();
+foreach($c as $row){}
+
+$commentaireC=new CommentaireC();
+
 			 			 ?>
+<?php
+$bdd = new PDO("mysql:host=127.0.0.1;dbname=snt;charset=utf8", "root", "");
+if(isset($_GET['reference']) AND !empty($_GET['reference'])) {
+   $getreference = htmlspecialchars($_GET['reference']);
+   $pack = $bdd->prepare('SELECT * FROM pack WHERE reference = ?');
+   $pack->execute(array($getreference));
+  
+      
+      $likes = $bdd->prepare('SELECT reference FROM likesp WHERE reference = ?');
+      $likes->execute(array($getreference));
+      $likes = $likes->rowCount();
+      $dislikes = $bdd->prepare('SELECT reference FROM dislikesp WHERE reference = ?');
+      $dislikes->execute(array($getreference));
+      $dislikes = $dislikes->rowCount();
+  $total=$likes + $dislikes;
+	$suml = (($likes * 100) / $total);
+	$sumd = (($dislikes * 100) / $total);
+	
+} else {
+   die('Erreur');
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Product</title>
+	<title>Product Detail</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -61,7 +91,7 @@
 						
 
 						<a href="log-in.html" class="flex-c-m trans-04 p-lr-25">
-						<?php session_start ();  
+							<?php 
  
 // On récupère nos variables de session
 if (isset($_SESSION['l']) && isset($_SESSION['p'])) 
@@ -80,9 +110,7 @@ else {
 }   ?>
 						</a>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							FR
-						</a>
+						
 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							Dinar Tunisien
@@ -395,273 +423,270 @@ else {
 	  </div>
 	</div>
 
-	
-	<!-- Product -->
-	<div class="bg0 m-t-23 p-b-140">
-		<div class="container">
-			<div class="flex-w flex-sb-m p-b-52">
-				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-						Les Bonne Affaires
-					</button>
+	<!-- Product Detail -->
+	<section class="sec-product-detail bg0 p-t-65 p-b-60">
+	  <div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-7 p-b-30">
+					<div class="p-l-25 p-r-30 p-lr-0-lg">
+						<div class="wrap-slick3 flex-sb flex-w">
+							<div class="wrap-slick3-dots"></div>
+							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
-					
-					
-				</div>
+							<div class="slick3 gallery-lb">
+							  <div class="item-slick3" data-thumb="<?php echo $row['image'] ;?>">
+									<div class="wrap-pic-w pos-relative">
+										<img src="<?php echo $row['image'] ;?>" alt="IMG-PRODUCT">
 
-				<div class="flex-w flex-c-m m-tb-10">
-					<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
-						<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
-						<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						 Filtre
-					</div>
-
-					<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
-						<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
-						<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						Recherche
-					</div>
-				</div>
-				
-				<!-- Search product -->
-				<div class="dis-none panel-search w-full p-t-10 p-b-15">
-					<div class="bor8 dis-flex p-l-15">
-						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
-							<i class="zmdi zmdi-search"></i>
-						</button>
-
-						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
-					</div>	
-				</div>
-
-				<!-- Filter -->
-				<div class="dis-none panel-filter w-full p-t-10">
-					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-						<div class="filter-col1 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">
-								Trier par
-							</div>
-
-							<ul>
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Par défaut
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Popularité
-									</a>
-								</li>
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="<?php echo $row['image'] ;?>">
+											<i class="fa fa-expand"></i>
+										</a>
+									</div>
+								</div>
 
 								
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-										Nouveauté
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Prix croissant
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Prix décroissant
-									</a>
-								</li>
-							</ul>
-						</div>
-
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15"> Prix </div>
-
-							<ul>
-							  <li class="p-b-6"><a href="#" class="filter-link stext-106 trans-04 filter-link-active">Tous</a></li>
-							  <li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										0.00DT - 10.00DT
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										10.00DT - 50.00DT
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										50.00DT - 100.00DT
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										100.00DT - 150.00DT
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										150.00DT+
-									</a>
-								</li>
-							</ul>
-						</div>
-
-						<div class="filter-col3 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">
-								Marque
-							</div>
-
-							<ul>
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										HAMMER
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-										BSN
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										OLIMP Sports Nutrition
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										MUSCLETECH
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										OPTIMUM NUTRITION
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
-										<i class="zmdi zmdi-circle"></i>
-									</span>
-
-									<a href="#" class="filter-link stext-106 trans-04">
-										Impact Sport Nutrition
-									</a>
-								</li>
-							</ul>
-						</div>
-
-						<div class="filter-col4 p-b-27">
-							<div class="mtext-102 cl2 p-b-15"> Objectif</div>
-
-							<div class="flex-w p-t-4 m-r--5">
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									Perte de poids
-							  </a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									Gain de masse
-							  </a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									Endurance
-							  </a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									Bodybuilding
-								</a>
-
-							  <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									Spéciale femmes
-								</a>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			
+				<div class="col-md-6 col-lg-5 p-b-30">
+					<div class="p-r-50 p-t-5 p-lr-0-lg">
+						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
+							<?PHP echo $row['nom'];  ?>
+						</h4>
 
-			<div class="row isotope-grid">
+						<span class="mtext-106 cl2">
+							<?PHP echo $row['prix'];  ?>.000 DT
+						</span>
+
+						<p class="stext-102 cl3 p-t-23">
+						       <?PHP echo $row['description'];  ?>
+						</p>
+						<br />
+						<!--  -->
+						<span class="stext-105 cl3">
+							<?php 
+
+					$bdd = new PDO('mysql:host=127.0.0.1;dbname=snt;charset=utf8','root','');
+					
+		if(isset($_POST['noter'])) {
+				
+     
+			$rating =$_POST['rating'];
+            $ins = $bdd->prepare('INSERT INTO etoilep (reference, user, note) VALUES (?,?,?)');
+            $ins->execute(array($_GET['reference'],$_SESSION['r'],$rating));
+			$i = 1;?>
+							Your Rating
+			<span class="wrap-rating fs-18 cl11 pointer">
 				<?php
-				foreach($listePack as $row){
-				if	(( $row['etat'] == "Disponible") || ( $row['etat'] == "Prochainement") )
-				{?>
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item shoes">
-					<!-- Block2 -->
-					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img width="400" height="200" src="<?php echo $row['image'] ;?>">
-
-							
-						</div>
-
-						<div class="block2-txt flex-w flex-t p-t-14">
-							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail1.php?reference=<?PHP echo $row['reference']; ?>"" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-									<?PHP echo $row['nom']; ?>
-								</a>
-                                  <span class="stext-105 cl3">
-									<?PHP echo $row['description']; ?>
-								</span>
-								<span class="stext-105 cl3">
-									<?PHP echo $row['prix']; ?>.000 DT
-								</span>
-							</div>
-
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-<?php 	} }
+while ($i <= $rating) {
+    $i++;
+	
+	?>
+				
+	<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+			
+				<?php
+		}
+		 ?>	</span>  <?php }else{	
 			?>
 				
-			<!-- Load more -->
-			
-		</div>
-	</div>
-		
-<div class="flex-c-m flex-w w-full p-t-45">
-				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-					voir plus
-				</a>
+						
+									
+					
+						
+								<form  method="POST">
+														Your Rating
+													</span>
+													<span class="wrap-rating fs-18 cl11 pointer">
+														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+														<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+														<input class="dis-none" type="number" name="rating" >
+														<input type="submit" value="Noter" name="noter" />
+														
+
+
+								</form>
+
+								</span>
+							</div>
+					<?php }	
+$fiveetoile = $bdd->prepare('SELECT reference FROM etoilep WHERE reference = ? AND note = ? ');
+      $fiveetoile->execute(array($getreference,5));
+      $fiveetoile = $fiveetoile->rowCount();
+$fouretoile = $bdd->prepare('SELECT reference FROM etoilep WHERE reference = ? AND note = ? ');
+     $fouretoile->execute(array($getreference,4));
+      $fouretoile = $fouretoile->rowCount();
+							 $threeetoile = $bdd->prepare('SELECT reference FROM etoilep WHERE reference = ? AND note = ? ');
+      $threeetoile->execute(array($getreference,3));
+      $threeetoile = $threeetoile->rowCount();
+							
+							$twoetoile = $bdd->prepare('SELECT reference FROM etoilep WHERE reference = ? AND note = ? ');
+      $twoetoile->execute(array($getreference,2));
+      $twoetoile = $twoetoile->rowCount();
+							$oneetoile = $bdd->prepare('SELECT reference FROM etoilep WHERE reference = ? AND note = ? ');
+      $oneetoile->execute(array($getreference,1));
+      $oneetoile = $oneetoile->rowCount();
+							$zeroetoile = $bdd->prepare('SELECT reference FROM etoilep WHERE reference = ? AND note = ? ');
+      $zeroetoile->execute(array($getreference,0));
+      $zeroetoile = $zeroetoile->rowCount();
+$totalvote=$fiveetoile + $fouretoile + $threeetoile +$twoetoile + $oneetoile + $zeroetoile;
+	$moyenne=((($fiveetoile * 5) + ($fouretoile * 4) + ($threeetoile * 3)	+ ($twoetoile * 2) + ($oneetoile * 1)) / $totalvote);
+	//echo $moyenne;
+					
+						?>
+					<br />
+					<span class="mtext-106 cl2">Note Moyenne :</span>&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="mtext-106 cl2" style="color: goldenrod"><?php echo number_format($moyenne, 2);
+	;?>/5</span>
+					<br />
+						<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="action1.php?t=1&reference=<?= $getreference ?>"><img src="likes.png"  ><span class="mtext-106 cl2" style="position:relative; top:4px;left:-64px; color: white"><?= $likes ?></span></a><a href="action1.php?t=2&reference=<?= $getreference ?>"><img src="dislikes.png"  > <span class="mtext-106 cl2" style="position:relative; top:4px;left:-122px; color: white"><?= $dislikes ?></span> </a>
+<br />
+					<br />
+					<br />
+				
+					      <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Stat Like And Dislike </h6>
+                </div>
+                <div class="card-body">
+					<h4 class="small font-weight-bold">Nombre de Like <span class="float-right"><?= $suml ?>%</span></h4>
+                  <div class="progress mb-4">
+                    <div class="progress-bar" role="progressbar" style="width: <?= $suml ?>%" aria-valuenow="<?= $suml ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <h4 class="small font-weight-bold">Nombre de Dislike <span class="float-right"><?= $sumd ?>%</span></h4>
+                  <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $sumd ?>%" aria-valuenow="<?= $sumd ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                 
+					</div>
+					</div>
+  <input type="hidden" value="<?PHP echo $row['reference']; ?>" name="reference">
+					<br />
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-204 flex-w flex-m respon6-next">
+									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+											<i class="fs-16 zmdi zmdi-minus"></i>
+										</div>
+
+										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+
+										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+											<i class="fs-16 zmdi zmdi-plus"></i>
+										</div>
+									</div>
+
+									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+										Add to cart
+									</button>
+									
+								</div>
+							</div>	
+						</div>
+				
+						<!--  -->
+						
+					</div>
+				</div>
 			</div>
-	<!-- Footer -->
+	<?php
+		//$bdd = new PDO('mysql:host=127.0.0.1;dbname=snt;charset=utf8','root','');
+		if(isset($_POST['submit_commentaire'])) {
+			 
+      if(isset($_POST['commentaire'])  AND !empty($_POST['commentaire'])) {
+        
+         $commentaire = htmlspecialchars($_POST['commentaire']);
+        $commentaireC->ajouter($commentaire);
+            //$ins = $bdd->prepare('INSERT INTO commentaires (user, commentaire, date) VALUES (?,?,NOW())');
+            //$ins->execute(array($_SESSION['r'],$commentaire));
+		
+            $c_msg = "<span style='color:green'>Votre commentaire a bien été posté</span>";
+		 
+         } 
+       else {
+         $c_msg = "Erreur: Tous les champs doivent être complétés";
+      }}
+   //$commentaires = $bdd->prepare('SELECT * FROM commentaires ORDER BY id DESC');
+		 
+		$commentaires=$commentaireC->affichercom();
+   
+   ?> 
+					<?php 
+ 
+// On récupère nos variables de session
+if (isset($_SESSION['l']) && isset($_SESSION['p'])) 
+{ ?>
+
+	 <div class="col-12 p-b-5">
+													<label class="stext-102 cl3" for="review" ><h4>  POSTER UN COMMENTAIRE</h4></label>
+													<form method="POST">
+													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" placeholder="Votre Commentaire..." name="commentaire"></textarea> <br />
+			 <input type="submit" value="Poster mon commentaire" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10"name="submit_commentaire" />		
+														</form></div>
+<?php }else { ?>
+	<div class="col-12 p-b-5">
+													<label class="stext-102 cl3" for="review" ><h4>  POSTER UN COMMENTAIRE</h4></label>
+		<p>Vous devez être <a href="log-in.html">connecté</a> pour pouvoir poster un commentaire...</p>
+													<form method="POST">
+													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" placeholder="Votre Commentaire..." name="commentaire" disabled></textarea> <br />
+			 <input type="submit" value="Poster mon commentaire" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10"name="submit_commentaire" />		
+														</form></div>
+    
+	  
+
+<?php }   ?>
+			
+<?php if(isset($c_msg)) { echo $c_msg; } ?>
+<br /><br />
+<?php 
+		
+		//while($c = $commentaires->fetch()) { 
+				
+		foreach($commentaires as $row){?>
+				
+				<div class="flex-w flex-t p-b-68">
+											
+
+												</div>  
+													
+								
+					
+					<div class="bor10 m-t-50 p-t-43 p-b-40">
+				
+										<div class="flex-w flex-t p-b-68">
+											<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+												<img src="<?php echo $row['avatar'] ;?>" alt="AVATAR">
+											</div>
+
+											<div class="size-207">
+												<div class="flex-w flex-sb-m p-b-17">
+													<span class="mtext-107 cl2 p-r-20">
+														<?php echo $row['user'];?>
+													</span>
+
+													
+												</div>
+
+												<p class="stext-102 cl6">
+													<?php echo $row['commentaire'];?>
+													</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Posté le :<?php echo $row['date'];?> 
+												</p>
+											</div>
+										</div>
+										</div>
+			
+										
+   
+<?php } ?>
 	
+	
+
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">
 		<span class="symbol-btn-back-to-top">
@@ -756,24 +781,7 @@ else {
 									</div>
 								</div>
 
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Red</option>
-												<option>Blue</option>
-												<option>White</option>
-												<option>Grey</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
+								
 
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-204 flex-w flex-m respon6-next">
@@ -925,49 +933,5 @@ else {
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
-<footer class="bg3 p-t-75 p-b-32">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6 col-lg-3 p-b-50">
-            <h4 class="stext-301 cl0 p-b-30"> Contactez nous </h4>
-            <p class="stext-107 cl7 size-201"> <img src="images/icons/tel-footer.png"> Tél: (+216) 27 925 666 </br>
-              <img src="images/icons/mail-footer.png"> sntunisia@gmail.com</br>
-              <img src="images/icons/adresse-footer.png"> 99 avenue de la République Hammem Linf </br>
-              <img src="images/icons/horaire-footer.png"> Du lundi à samedi
-              de 10:00h à 18:00h </p>
-          </div>
-          <div class="col-sm-6 col-lg-3 p-b-50">
-            <h4 class="stext-301 cl0 p-b-30"> À propos </h4>
-            <p class="stext-107 cl7 size-201"> Vente de produits sportifs tel que
-              les compléments alimentaires et tout ce qui est
-              en relation avec le domaine sportif. Appelez nous au (+216) 27 925 666 </p>
-            <div class="p-t-27"> <a href="https://www.facebook.com/STNutrition/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i class="fa fa-facebook"></i> </a> </div>
-          </div>
-          <div class="col-sm-6 col-lg-3 p-b-50"></div>
-          <div class="col-sm-6 col-lg-3 p-b-50">
-            <h4 class="stext-301 cl0 p-b-30"> Newsletter </h4>
-            <form>
-              <div class="wrap-input1 w-full p-b-4">
-                <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@exemple.com">
-                <div class="focus-input1 trans-04"></div>
-              </div>
-              <div class="p-t-18">
-                <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04"> s'abonner </button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="p-t-40">
-          <div class="flex-c-m flex-w p-b-18"> <a href="#" class="m-all-1"> <img src="images/icons/icon-pay-01.png" alt="ICON-PAY"> </a> <a href="#" class="m-all-1"> <img src="images/icons/icon-pay-02.png" alt="ICON-PAY"> </a> <a href="#" class="m-all-1"> <img src="images/icons/icon-pay-03.png" alt="ICON-PAY"> </a> </div>
-          <p class="stext-107 cl6 txt-center">
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;
-            <script>document.write(new Date().getFullYear());</script>
-            tous droits réservés | Créer avec <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="#" target="_blank">Teamleap</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          </p>
-        </div>
-      </div>
-</footer>
 </body>
 </html>

@@ -12,13 +12,15 @@
   <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
+	<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="cll1.js"></script>
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-<script src="controlesaisie.js">
-</script>
+
 </head>
 
 <body id="page-top">
@@ -210,7 +212,7 @@
                     </div>
                   </div>
 
-              </div>
+              </form></div>
             </li>
 
             <!-- Nav Item - Alerts -->
@@ -324,7 +326,7 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Arfaoui Mohamed Aziz</span>
-           <img class="img-profile rounded-circle" src="cv.png">
+           <img alt="zz" class="img-profile rounded-circle" src="cv.png">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -350,7 +352,7 @@
 
           </ul>
 
-        </nav>
+        </form></nav>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
@@ -373,9 +375,10 @@
               <h6 class="m-0 font-weight-bold text-primary"><em class="fas fa-plus-square"> &nbsp; Ajouter une Pack</em></h6>
               <h6 class="m-0 font-weight-bold text-primary">&nbsp;</h6>
             </div>
-			  <form name="f">
+			 
             <div class="card-body">
               <div class="table-responsive">
+				  <form name="f" onsubmit="return verifForm(this);">
                 <table  id="dataTable" width="60%" border="0px" cellspacing="0">
                   <thead>
                     <tr>
@@ -390,7 +393,7 @@
                     <tr>
                       <th>Nom Pack</th>
                       <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="nom" value="" >
+						  <input width="10%" type="text" class="form-control form-control-user" id="nom" name="nom" onblur="verifnom(this);" value="" >
 					  </th>
 
                     </tr>
@@ -399,7 +402,7 @@
                     <tr>
                       <th> Description </th>
                       <th>
-						  <input width="10%"  type="text"  name="description" class="form-control form-control-user" id="taux"  value="" >
+						  <input width="10%"  type="text"  name="description" class="form-control form-control-user" id="description" onblur="verifdes(this);" value="" >
 
 						</th>
 
@@ -410,7 +413,7 @@
                     <tr>
                       <th>Prix  Pack</th>
                       <th>
-					    <input width="10%" type="text" name="prix" class="form-control form-control-user" id="exampleInputEmail"  value="" onblur="verifNPrix(this)">
+					    <input width="10%" type="text" name="prix" class="form-control form-control-user" id="prix"  value="" onblur="verifprix(this)">
 					  </th>
 
                     </tr>
@@ -458,15 +461,15 @@
                     <tr> </tr>
                   </thead>
                 </table>
-			   </br>
+			   <br \>
 	 <input type="submit" name="mailform" value="Ajouter une Pack"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="verifForm()" >
 
-						</div>
+						</form></div>
             </div>
 
-          </div>
-        </div>
-      </div>
+          </div></div></div></div></div>
+	  </form>
+      
       <!-- End of Main Content -->
 
       <!-- Footer -->
@@ -480,10 +483,10 @@
       </footer>
       <!-- End of Footer -->
 
-    </div>
+   
     <!-- End of Content Wrapper -->
 
-  </div>
+
   <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
@@ -526,10 +529,7 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
-	</form>
-			</form>
-	</form>
-	  </form>
+	
 </body>
 
 </html>

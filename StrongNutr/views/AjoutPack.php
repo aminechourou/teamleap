@@ -1,3 +1,35 @@
+<?php
+session_start ();
+include "../core/PackC.php";
+include "../entities/Pack.php";
+
+if( isset($_GET['reference']) && isset($_GET['nom']) && isset($_GET['description']) && isset($_GET['prix']) && isset($_GET['quantite']) && isset($_GET['etat']) && isset($_GET['image']) && isset($_GET['datee']) && isset($_GET['mailform']) )
+{
+$reference=$_GET['reference'];
+$nom=$_GET['nom'];
+$description=$_GET['description'];
+$prix=$_GET['prix'];
+$quantite=$_GET['quantite'];
+$etat=$_GET['etat'];
+$image=$_GET['image'];
+$datee=$_GET['datee'];
+
+if( !empty($_GET['reference']) && !empty($_GET['nom']) && !empty($_GET['description']) && !empty($_GET['prix']) && !empty($_GET['quantite']) && !empty($_GET['etat']) && !empty($_GET['image']) && !empty($_GET['datee']) )
+{
+$pack=new Pack($reference,$nom,$description,$prix,$quantite,$etat,$image,$datee);
+ $packC=new PackC();
+ $mes=$packC->ajouter($pack);
+if ($mes==true)
+	//echo "Ajout avec succées " ;
+	$to='aziz.arfaou.98@gmail.com';
+$sujet='Nouvelle Pack ajoutée ';
+$texte="nouvelle pack ajouter";
+$header='From : test@gmail.com';
+mail($to,$sujet,$texte,$header);
+	header('Location: pack.php');
+	
+}}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,26 +44,28 @@
   <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
+	<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="cll1.js"></script>
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-<script src="cntrl.js">
-</script>
+
 </head>
 
 <body id="page-top">
-		<form method="GET" action ="ajouter_promo.php">
+		<form method="GET" action ="ajouter_pack.php" enctype="multipart/form-data">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-   <!-- Sidebar -->
+    <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index2.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
       <div class="sidebar-brand-icon rotate-n-1">
         <img src="images/icons/logo-01.png" alt="IMG-LOGO" width="80px" height="60px">
         </div>
@@ -43,7 +77,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index2.html">
+        <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Tableau de bord</span></a>
       </li>
@@ -84,8 +118,8 @@
         <div id="collapseCat" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
 
-              <a class="collapse-item" href="produit.php">Produits</a>
-            <a class="collapse-item" href="categ.php">Catégories</a>
+            <a class="collapse-item" href="produit.html">Produits</a>
+            <a class="collapse-item" href="categ.html">Catégories</a>
             <a class="collapse-item" href="suivi.html">Suivi</a>
             <a class="collapse-item" href="att-carac.html">Attributs & caractéristiques</a>
 			   <a class="collapse-item" href="marque-fourni.html">Marques et fournisseurs</a>
@@ -105,8 +139,8 @@
         <div id="collapseCl" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
 
-                 <a class="collapse-item" href="afficherclient.php">Clients</a>
-            <a class="collapse-item" href="adresse.php">carte fidelité</a>
+            <a class="collapse-item" href="client.html">Clients</a>
+            <a class="collapse-item" href="adresse.html">Adresses</a>
 
           </div>
         </div>
@@ -323,8 +357,24 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Arfaoui Mohamed Aziz</span>
-           <img alt="ff" class="img-profile rounded-circle" src="cv.png">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php   
+ 
+// On récupère nos variables de session
+if (isset($_SESSION['l']) && isset($_SESSION['p'])) 
+{ 
+
+	 echo $_SESSION['r']; 
+	
+
+}
+
+else { 
+	echo "Mon Compte";
+    
+	  
+
+}   ?></span>
+           <img alt="zz" class="img-profile rounded-circle" src="cv.png">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -343,7 +393,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                  <?php echo '<a href="./logout.php" class="dropdown-item" >Logout</a>';?>
                 </a>
               </div>
             </li>
@@ -357,7 +407,7 @@
 
         <div class="container-fluid">
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Promotion</h1>
+          <h1 class="h3 mb-2 text-gray-800">Bons de livraison</h1>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4"> </div>
@@ -370,47 +420,37 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary"><em class="fas fa-plus-square"> &nbsp; Ajouter un produit en promos</em></h6>
+              <h6 class="m-0 font-weight-bold text-primary"><em class="fas fa-plus-square"> &nbsp; Ajouter une Pack</em></h6>
               <h6 class="m-0 font-weight-bold text-primary">&nbsp;</h6>
             </div>
-
+			 
             <div class="card-body">
               <div class="table-responsive">
-				
 				  <form name="f" onsubmit="return verifForm(this);">
                 <table  id="dataTable" width="60%" border="0px" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Reference Produit</th>
+                      <th>Reference Pack</th>
                       <th>
-						  <input width="10%"  name="reference" type="text" class="form-control form-control-user" id="reference" onblur="verifref(this);"  >
+						  <input width="10%"  name="reference" type="text" class="form-control form-control-user" id="reference" onblur="verifref(this)"  >
 					  </th>
 
                     </tr>
                   </thead>
 					<thead>
                     <tr>
-                      <th>Nom Produit</th>
+                      <th>Nom Pack</th>
                       <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="APrix" name="nom" value="" >
-					  </th>
-
-                    </tr>
-                  </thead>
-					<thead>
-                    <tr>
-                      <th>Ancien Prix</th>
-                      <th>
-						  <input width="10%" type="text" class="form-control form-control-user" id="aprix" name="aprix" value="" onblur="verifaprix(this);">
+						  <input width="10%" type="text" class="form-control form-control-user" id="nom" name="nom" onblur="verifnom(this);" value="" >
 					  </th>
 
                     </tr>
                   </thead>
                  <thead>
                     <tr>
-                      <th> taux de reduction </th>
+                      <th> Description </th>
                       <th>
-						  <input width="10%"  type="number" step="5" name="taux" class="form-control form-control-user" id="taux"  value=""  >
+						  <input width="10%"  type="text"  name="description" class="form-control form-control-user" id="description" onblur="verifdes(this);" value="" >
 
 						</th>
 
@@ -419,9 +459,9 @@
 
 					<thead>
                     <tr>
-                      <th>Prix apres Promotion</th>
+                      <th>Prix  Pack</th>
                       <th>
-					    <input width="10%" type="text" name="nprix" class="form-control form-control-user" id="exampleInputEmail"  value="" onblur="verifnprix(this);">
+					    <input width="10%" type="text" name="prix" class="form-control form-control-user" id="prix"  value="" onblur="verifprix(this)">
 					  </th>
 
                     </tr>
@@ -437,7 +477,7 @@
                   </thead>
 					<thead>
                     <tr>
-                    <th>Etat</th>
+                      <th>Etat</th>
                       <th>  <select class="form-control form-control-user" name="etat" width="100%">
 					<option value="Disponible">Disponible</option>
 				    <option value="Non disponible">Non disponible</option>
@@ -449,7 +489,7 @@
                   </thead>
 					 <thead>
                     <tr>
-                      <th>Image du Produit </th>
+                      <th>Image du Pack </th>
                       <th>
 					   <input  type="file" name="image"  width="30%" >
 					  </th>
@@ -469,15 +509,15 @@
                     <tr> </tr>
                   </thead>
                 </table>
-			   <br />
-	 <input type="submit" name="mailform" value="Ajouter une Promo"  onsubmit="verifForm(this);" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" >
-				  </form>
-						</div>
+			   <br \>
+	 <input type="submit" name="mailform" value="Ajouter une Pack"  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="verifForm()" >
+
+						</form></div>
             </div>
 
-          </div>
-        </div>
-      </div>
+          </div></div></div></div></div>
+	  </form>
+      
       <!-- End of Main Content -->
 
       <!-- Footer -->
@@ -491,10 +531,10 @@
       </footer>
       <!-- End of Footer -->
 
-    </div>
+   
     <!-- End of Content Wrapper -->
 
-  </div>
+
   <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
@@ -537,8 +577,6 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
-
-			</form>
 	
 </body>
 
